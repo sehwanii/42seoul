@@ -4,7 +4,7 @@ src_m = ft_printf.c ft_print_memory.c
 OBJS = $(src_m:.c=.o)
 OBJS_B = $(src_b:.c=.o)
 
-CFLAGS = -Wall -Wextra -g3
+CFLAGS = -Wall -Wextra -Werror
 
 .PHONY : all clean fclean re bonus
 
@@ -14,6 +14,7 @@ $(NAME) : $(OBJS)
 	make -C ./Libft bonus
 	cp ./Libft/libft.a libft.a 
 	ar rc $@ $^
+	'libtool'
 	
 %.o : %.c ft_printf.h
 	$(CC) $(CFLAGS) -c $< -o $@
