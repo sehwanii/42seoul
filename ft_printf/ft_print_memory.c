@@ -6,37 +6,37 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:09:24 by sehwjang          #+#    #+#             */
-/*   Updated: 2023/12/30 21:33:44 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:47:45 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	print_ptr(unsigned long long ptr);
+static int	print_ptr(unsigned long long ptr);
 
 int	ft_print_memory(void *addr)
 {
 	unsigned long long	ptr;
 
+	if (addr == NULL)
+		return (write(1, "0x0", 3));
 	ptr = (unsigned long long)addr;
-	print_ptr(ptr);
-	write(1, "\n", 1);
-	return (16);
+	write(1,"0x",2);
+	return (print_ptr(ptr)+2);
 }
 
-void	print_ptr(unsigned long long ptr)
+int	print_ptr(unsigned long long ptr)
 {
 	int		idx;
 	char	*hex;
-	char	arr[16];
 
 	hex = "0123456789abcdef";
 	idx = 0;
-	while (idx < 16)
+	while (ptr > 0)
 	{
-		arr[15 - idx] = hex[ptr % 16];
-		ptr /= 16;
-		idx++;
+		idx = print_ptr(ptr / 16);
+		write(1, &hex[ptr % 16], 1);
+		return (1 + idx);
 	}
-	write(1, arr, 16);
+	return (0);
 }

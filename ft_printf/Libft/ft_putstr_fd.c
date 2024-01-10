@@ -6,14 +6,18 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 16:09:26 by sehwjang          #+#    #+#             */
-/*   Updated: 2023/10/28 16:25:48 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:00:25 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+size_t	ft_putstr_fd(char *s, int fd)
 {
-	while (*s)
-		write(fd, s++, 1);
+	size_t	idx;
+
+	idx = 0;
+	while (s[idx])
+		write(fd, &s[idx++], 1);
+	return (idx);
 }
