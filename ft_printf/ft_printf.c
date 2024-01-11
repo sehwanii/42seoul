@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:01:53 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/10 17:02:43 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:25:47 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,28 @@
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	ap;
-	size_t	len;
-	size_t	idx;
-	size_t	word_start;
-	char	*temp;
+	va_list			ap;
+	size_t			len;
+	size_t			idx;
+	int				temp;
+	const size_t	format_len = ft_strlen(format);
 
 	va_start(ap, format);
-	word_start = 0;
 	len = 0;
 	idx = 0;
-	while (format[idx])
+	while (idx < format_len)
 	{
 		if (format[idx] == '%')
 		{
-			temp = ft_substr(format, word_start, idx - word_start);
-			len += ft_putstr_fd(temp, 1) + print_format(format[idx++ + 1], ap);
-			free(temp);
-			word_start = idx + 1;
+			temp = print_format(format[idx + 1], ap);
+			idx += 2;
 		}
-		idx++;
+		else
+			temp = write(1, &format[idx++], 1);
+		if (temp == -1)
+			return (-1);
+		len += temp;
 	}
-	temp = ft_substr(format, word_start, idx - word_start);
-	len += ft_putstr_fd(temp, 1);
-	free(temp);
 	return (len);
 }
 
@@ -58,19 +56,18 @@ size_t	print_format(char type, va_list ap)
 	else if (type == 'u')
 		return (write_unsigned_int(va_arg(ap, int)));
 	else if (type == 'x')
-		return (write_hex(va_arg(ap, int)));
+		return (write_hex(va_arg(ap, int), 0));
 	else if (type == 'X')
-		return (write_HEX(va_arg(ap, int)));
+		return (write_big_hex(va_arg(ap, int), 0));
 	else
-		return (-1);
-	return (1);
+	{
+		write(1, "%%", 1);
+		write(1, &type, 1);
+		return (2);
+	}
 }
 
 int	write_char(char c)
 {
 	return (write(1, &c, 1));
 }
-
-// int main(){
-// 	printf("\n%d",ft_printf("%x", 0));
-// }
