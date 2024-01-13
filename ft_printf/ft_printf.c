@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 17:01:53 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/11 15:25:47 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/13 14:55:03 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ size_t	print_format(char type, va_list ap)
 		return (write_big_hex(va_arg(ap, int), 0));
 	else
 	{
-		write(1, "%%", 1);
-		write(1, &type, 1);
+		if (write(1, "%%", 1) + write(1, &type, 1) != 2)
+			return (-1);
 		return (2);
 	}
 }

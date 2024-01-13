@@ -6,14 +6,14 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 17:16:34 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/09 12:32:15 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:05:07 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 10
 #endif
 
 int	init_buffer(char *check_buf, char **left, char **right)
@@ -22,7 +22,7 @@ int	init_buffer(char *check_buf, char **left, char **right)
 	int		len;
 	char	*temp;
 	int		flag;
-
+char * temp2 = NULL;
 	flag = 0;
 	idx = 0;
 	len = 0;
@@ -42,7 +42,9 @@ int	init_buffer(char *check_buf, char **left, char **right)
 		return (-1);
 	if (flag)
 	{
-		*left = ft_strjoin(*left, temp);
+		temp2 = *left;		//left == NULL일 때 처리.
+		*left = ft_strjoin(temp2, temp);
+		free(temp2);
 		*right = ft_substr(check_buf, idx + 1, len - idx);
 		if (*right == NULL)
 		{
@@ -51,7 +53,10 @@ int	init_buffer(char *check_buf, char **left, char **right)
 		}
 		return (1);
 	}
-	*left = ft_strjoin(*left, temp);
+	
+	temp2 = *left;
+	*left = ft_strjoin(temp2, temp);
+	free(temp2);
 	free(temp);
 	return (0);
 }
@@ -94,6 +99,10 @@ char	*get_next_line(int fd)
 // 		return (0);
 // 	}
 // 	printf("%s",get_next_line(fd));
+// printf("%s",get_next_line(fd));
+// printf("%s",get_next_line(fd));
+// printf("%s",get_next_line(fd));
+// printf("%s",get_next_line(fd));
 // printf("%s",get_next_line(fd));
 // printf("%s",get_next_line(fd));
 // 	close( fd);
