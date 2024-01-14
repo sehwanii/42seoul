@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:10:09 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/10 18:05:26 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:54:48 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	total_len;
 	char	*ret_str;
 
-	if (s1 == NULL)
+	if (s1 == NULL || *s1 == '\0')
 	{
 		s1 = ft_strdup(s2);
 		return ((char *)s1);
@@ -127,7 +127,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (s_len <= len + (size_t)start)
 		len = s_len - (size_t)start;
 	if (s_len < (size_t)start || len == 0)
-		return (0);
+	{
+		ret_str = (char *)malloc(1);
+		ret_str[0] = '\0';
+		return (ret_str);
+	}
 	else
 	{
 		ret_str = (char *)malloc(len + 1);

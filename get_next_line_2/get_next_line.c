@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 17:16:34 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/10 18:05:07 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:58:04 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char * temp2 = NULL;
 	{
 		temp2 = *left;		//left == NULL일 때 처리.
 		*left = ft_strjoin(temp2, temp);
+		free(temp);
 		free(temp2);
 		*right = ft_substr(check_buf, idx + 1, len - idx);
 		if (*right == NULL)
@@ -66,7 +67,7 @@ char * temp2 = NULL;
 char	*get_next_line(int fd)
 {
 	static char	*prev_buf;
-	char		*ret_buf;
+	char		*ret_buf = NULL;
 	int			size;
 	char		buf[BUFFER_SIZE + 1];
 
