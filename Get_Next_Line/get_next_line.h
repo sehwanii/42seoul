@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/02 10:20:29 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/01/07 17:18:37 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/01/14 21:03:50 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,30 @@
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
+#include <stdio.h>	//ㅈㅣ우기
+#include <fcntl.h>
+# define MALLOC_ERROR	0
+# define INIT_LINE_SIZE	8
+# define RET_BUF_COMPLETE 1
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
+
+typedef struct s_list
+{
+	char			line[BUFFER_SIZE + 1];
+	struct s_list	*next;
+	int				fd;
+	int				malloc_size;
+}					t_list;
 
 char	*get_next_line(int fd);
 
-char	*ft_strdup(const char *s1);
-char	*strmcat(char *save, char *buf);
+
 size_t	ft_strlen(const char *s);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strchr(const char *s, int c);
+int	paste(char *dst, char *src, size_t start, size_t end);
+int	parse_buffer(char *read_buf, char *ret_buf, char *prev_buf, int *malloc_size);
+int	init_buffer(char **ret_buf, char *prev_buf, int *malloc_size);
+char	*ft_realloc(char *s);
 #endif
