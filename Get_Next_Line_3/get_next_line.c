@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:07:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/10 17:53:17 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:02:18 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,102 +15,145 @@
 #include <fcntl.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 1
+#define BUFFER_SIZE 3
 #endif
 
-// int	main()
+// int	main(void)
 // {
-// 	int fd = open("input", O_RDONLY);
-// 	if(fd<=0){
+// 	const int	fd = open("./input.txt", O_RDWR);
+
+// 	if (fd <= 0)
+// 	{
 // 		printf("ERROR");
 // 		return (0);
 // 	}
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	printf("%s",get_next_line(fd));
-// 	close( fd);
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	close(fd);
 // }
-static int check_left(char **word_left, char **ret_buf);
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	const size_t	prefix_len = ft_strlen(s1);
+	const size_t	suffix_len = ft_strlen(s2);
+	const size_t	total_len = prefix_len + suffix_len;
+	char			*ret_str;
+	size_t			idx;
+
+	idx = 0;
+	ret_str = (char *)malloc(total_len + 1);
+	if (ret_str == NULL)
+		return (0);
+	while (idx < prefix_len)
+	{
+		ret_str[idx] = s1[idx];
+		idx++;
+	}
+	idx = 0;
+	while (idx < suffix_len)
+	{
+		ret_str[prefix_len + idx] = s2[idx];
+		idx++;
+	}
+	ret_str[total_len] = '\0';
+	free(s1);
+	//free(s2);
+	return (ret_str);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	cnt;
+
+	if (s == NULL)
+		return (0);
+	cnt = 0;
+	while ((s[cnt]))
+		cnt++;
+	return (cnt);
+}
+
+char	*ft_realloc(char *s)
+{
+	char			*ret;
+	const size_t	size = ft_strlen(s);
+	size_t			idx;
+
+	idx = 0;
+	if (s == NULL || *s == '\0' || size == 0)
+		return (NULL);
+	ret = (char *)malloc(size + 1);
+	if (ret == NULL)
+		return (NULL);
+	while (idx < size)
+	{
+		ret[idx] = s[idx];
+		idx++;
+	}
+	ret[idx] = '\0';
+	free(s);
+	return (ret);
+}
+
+int	parse_buffer(char* s, char **ret, char *line)
+{
+	const size_t	s_len = ft_strlen(s);
+	const size_t	ret_len = ft_strlen(*ret);
+	size_t			idx;
+	size_t			jdx;
+
+	jdx = 0;
+	idx = 0;
+	if (s[0] == '\0')
+		return (1);
+	if (*ret == NULL)
+		*ret = (char *)malloc(BUFFER_SIZE * 2 + 1);
+	// if (*ret == NULL)
+	// 	return (NULL);
+	while (idx < s_len)
+	{
+		(*ret)[ret_len + idx] = s[idx];
+		if (s[idx++] == '\n')
+		{
+			(*ret)[ret_len + idx] = '\0';
+			while (idx <= s_len)
+				line[jdx++] = s[idx++];
+			//printf("?%s?",*ret);
+			*ret = ft_realloc(*ret);
+			return (0);
+		}
+	}
+	//printf("!%s!",*ret);
+	*ret = ft_realloc(*ret);
+	s[0] = '\0';
+
+	if (*ret == NULL)
+		return (0);
+	(*ret)[s_len + ret_len] = '\0';
+	return (1);
+}
 
 char	*get_next_line(int fd)
 {
-	char		buf[BUFFER_SIZE + 1];
+	static char	line[BUFFER_SIZE + 1];
+	char		buffer[BUFFER_SIZE + 1];
+	char		*ret;
 	int			size;
-	char		*ret_buf;
-	char		*end;
-	static char	*word_left;
-	char * temp;
-	char	*temp2;
-	temp2 = NULL;
-	ret_buf = NULL;
-	if(check_left(&word_left, &ret_buf))
-		return (ret_buf);
-	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
-	{
-		buf[size] = '\0';
-		end = ft_strchr(buf, '\n');
-		if (end)
-		{
-			if (ret_buf == NULL)
-				ret_buf = ft_substr(buf, 0, end - buf + 1);
-			else{
-				temp = ret_buf;
-				temp2 = ft_substr(buf, 0, end - buf + 1);
-				ret_buf = ft_strjoin(temp, temp2);//leak
-				free(temp2);
-				if (ret_buf == NULL){
-					free(temp);
-					free(ret_buf);
-				return (NULL);
-				}
-				free(temp);
-			}
-			free(word_left);
-			//if(size != end - buf + 1)
-			word_left = ft_substr(buf, end - buf + 1, size - (end - buf) - 1);//leak
-			if (word_left == NULL){
-				free(ret_buf);
-				free(word_left);
-				return (NULL);
-			}
-			break ;
-		}
-		if (ret_buf == NULL)
-			ret_buf = ft_strdup(buf);
-		else{
-			temp = ret_buf;
-			ret_buf = ft_strjoin(ret_buf, buf);
-			free(temp);
-		}
-	}
-	if (size == -1){
-		free(word_left);
-		word_left = NULL;
-	}
-	return (ret_buf);
+
+	ret = NULL;
+	if (fd < 0)
+		return (NULL);
+	if (parse_buffer(line, &ret, line) == 0)	//malloc 안되엇을 때, buffer에 개행 있을 때 
+		return (ret);
+	size = read(fd, buffer, BUFFER_SIZE);
+	buffer[size] = '\0';
+	//if (size != BUFFER_SIZE)	//파일 마지막이라면
+	if (parse_buffer(buffer, &ret, line) == 0)	//malloc 안되엇을 때, buffer에 개행 있을 때 
+		return (ret);
+	ret = ft_strjoin(ret, get_next_line(fd));
+	//printf("!%s!\n",ret);
+	return (ret);
 }
 
 
-int check_left(char **word_left, char **ret_buf)
-{
-	char	*end;
-	
-	if (*word_left != NULL && (*word_left)[0] != '\0'){
-		end = ft_strchr(*word_left, '\n');
-		if (end){
-			*ret_buf = ft_substr(*word_left, 0, end - *word_left + 1);
-			*word_left = ft_substr(*word_left, end - *word_left + 1, ft_strlen(*word_left) - (end - *word_left) - 1);
-			return (1);
-		}
-		else{
-			free(*ret_buf);
-			*ret_buf = ft_strdup(*word_left);
-			*word_left = NULL;
-		}
-	}
-	else{
-		//free(*word_left);
-		*ret_buf = NULL;
-	}
-	return (0);
-}
