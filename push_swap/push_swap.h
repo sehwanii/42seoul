@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 14:12:40 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/01/24 13:33:47 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/01/24 16:59:48 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+# include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "Libft/libft.h"
 
-char	*get_next_line(int fd);
+//int	push_swap(t_list *stack_a, t_list *stack_b, int arr[]);
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_realloc(char *s);
-int		parse_buffer(char* s, char **ret, char *line);
+int	*parse_input(char *argv[]);
+
 #endif

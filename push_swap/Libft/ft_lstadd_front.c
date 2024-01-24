@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 14:12:40 by sehwjang         ###   ########.fr       */
+/*   Created: 2023/10/28 21:23:59 by sehwjang          #+#    #+#             */
+/*   Updated: 2023/11/03 16:38:15 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+#include "libft.h"
 
-char	*get_next_line(int fd);
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	t_list	*temp;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_realloc(char *s);
-int		parse_buffer(char* s, char **ret, char *line);
-#endif
+	temp = (*lst);
+	*lst = new;
+	new -> next = temp;
+}

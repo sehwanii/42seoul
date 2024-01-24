@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 14:12:40 by sehwjang         ###   ########.fr       */
+/*   Created: 2023/11/07 17:03:39 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/01/11 15:22:29 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
 # include <unistd.h>
-# include <stdlib.h>
+# include "Libft/libft.h"
 
-char	*get_next_line(int fd);
-
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_realloc(char *s);
-int		parse_buffer(char* s, char **ret, char *line);
+int		ft_printf(const char *format, ...);
+size_t	print_format(char type, va_list ap);
+int		ft_print_memory(void *addr);
+int		write_char(char c);
+int		write_string(char *s);
+int		write_int(int n);
+int		write_unsigned_int(unsigned int n);
+int		write_hex(unsigned int n, int flag);
+int		write_big_hex(unsigned int n, int flag);
 #endif

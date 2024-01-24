@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 14:12:40 by sehwjang         ###   ########.fr       */
+/*   Created: 2023/10/05 14:48:54 by sehwjang          #+#    #+#             */
+/*   Updated: 2023/10/12 14:34:13 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+#include "libft.h"
 
-char	*get_next_line(int fd);
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	c1;
+	unsigned char	c2;
+	size_t			idx;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_realloc(char *s);
-int		parse_buffer(char* s, char **ret, char *line);
-#endif
+	idx = 0;
+	while ((*s1 || *s2) && idx < n)
+	{
+		c1 = *s1;
+		c2 = *s2;
+		if (c1 != c2)
+			return (c1 - c2);
+		else
+		{
+			s1++;
+			s2++;
+			idx++;
+		}
+	}
+	return (0);
+}

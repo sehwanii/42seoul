@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 14:12:40 by sehwjang         ###   ########.fr       */
+/*   Created: 2023/10/05 13:10:51 by sehwjang          #+#    #+#             */
+/*   Updated: 2023/10/12 15:23:04 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
+#include "libft.h"
 
-char	*get_next_line(int fd);
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t			cnt;
+	unsigned char	*cptr;
 
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_realloc(char *s);
-int		parse_buffer(char* s, char **ret, char *line);
-#endif
+	cptr = (unsigned char *)b;
+	cnt = 0;
+	while (cnt < len)
+	{
+		*cptr = (unsigned char)c;
+		cptr++;
+		cnt++;
+	}
+	return (b);
+}

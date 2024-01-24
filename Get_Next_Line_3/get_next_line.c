@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:07:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/22 13:02:18 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:47:47 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	ret_str[total_len] = '\0';
 	free(s1);
-	//free(s2);
+	free(s2);
 	return (ret_str);
 }
 
@@ -81,8 +81,10 @@ char	*ft_realloc(char *s)
 	size_t			idx;
 
 	idx = 0;
-	if (s == NULL || *s == '\0' || size == 0)
+	if (s == NULL || *s == '\0' || size == 0){
+		free(s);
 		return (NULL);
+	}
 	ret = (char *)malloc(size + 1);
 	if (ret == NULL)
 		return (NULL);
@@ -101,16 +103,10 @@ int	parse_buffer(char* s, char **ret, char *line)
 	const size_t	s_len = ft_strlen(s);
 	const size_t	ret_len = ft_strlen(*ret);
 	size_t			idx;
-	size_t			jdx;
 
-	jdx = 0;
 	idx = 0;
-	if (s[0] == '\0')
-		return (1);
 	if (*ret == NULL)
-		*ret = (char *)malloc(BUFFER_SIZE * 2 + 1);
-	// if (*ret == NULL)
-	// 	return (NULL);
+		*ret = (char *)malloc(BUFFER_SIZE + 1);
 	while (idx < s_len)
 	{
 		(*ret)[ret_len + idx] = s[idx];
@@ -118,18 +114,11 @@ int	parse_buffer(char* s, char **ret, char *line)
 		{
 			(*ret)[ret_len + idx] = '\0';
 			while (idx <= s_len)
-				line[jdx++] = s[idx++];
-			//printf("?%s?",*ret);
-			*ret = ft_realloc(*ret);
+				*(line++) = s[idx++];
 			return (0);
 		}
 	}
-	//printf("!%s!",*ret);
-	*ret = ft_realloc(*ret);
 	s[0] = '\0';
-
-	if (*ret == NULL)
-		return (0);
 	(*ret)[s_len + ret_len] = '\0';
 	return (1);
 }
@@ -144,16 +133,18 @@ char	*get_next_line(int fd)
 	ret = NULL;
 	if (fd < 0)
 		return (NULL);
-	if (parse_buffer(line, &ret, line) == 0)	//malloc 안되엇을 때, buffer에 개행 있을 때 
-		return (ret);
+	if (line[0] != '\0' && parse_buffer(line, &ret, line) == 0)	//malloc 안되엇을 때, buffer에 개행 있을 때 
+		return (ft_realloc(ret));
 	size = read(fd, buffer, BUFFER_SIZE);
+	if (size == -1)
+		return (NULL);
 	buffer[size] = '\0';
 	//if (size != BUFFER_SIZE)	//파일 마지막이라면
 	if (parse_buffer(buffer, &ret, line) == 0)	//malloc 안되엇을 때, buffer에 개행 있을 때 
-		return (ret);
+		return (ft_realloc(ret));
 	ret = ft_strjoin(ret, get_next_line(fd));
 	//printf("!%s!\n",ret);
-	return (ret);
+	return (ft_realloc(ret));
 }
 
 
