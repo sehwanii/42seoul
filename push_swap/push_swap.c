@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:33:24 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 16:55:37 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/25 01:47:56 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,42 @@
 
 int	main(int argc, char *argv[])
 {
-	//t_list	*stack_a;
-	//t_list	*stack_b;
-	int		*input;
+	t_deque	*stack_a;
+	t_deque	*stack_b;
+
 
 	if (argc <= 1)
 	{
 		write(2, "ERROR\n", 6);
 		return (EXIT_FAILURE);
 	}
-	//atexit(free_stack());
-	input = parse_input(argv);
-	for(int i = 0; i< 10; i++)
-		printf("%d ",input[i]);
-	//init_stack(stack_a, stack_b, parse_input(argv));
-	//push_swap();
-
+	atexit(free_stack(stack_a, stack_b));
+	init_buffer(stack_a, stack_b, argv);
+	parse_input(argv, stack_a);
+	dq_print_data(stack_a);
+	if (stack_a -> size <= 5)
+		push_swap_small(stack_a, stack_b);
+	else
+		push_swap(stack_a, stack_b);
+	free(stack_a);
+	free(stack_b);
+	return (0);
 }
 
-// int	push_swap(t_list *stack_a, t_list *stack_b, int arr[])
-// {
-	
-// }
+void	init_buffer(t_deque *stack_a, t_deque *stack_b, char *argv[])
+{
+	stack_a = NULL;
+	stack_b = NULL;
+	parse_input(argv, stack_a);
+	//order_index()
+}
+
+
+int	push_swap(t_deque *stack_a, t_deque *stack_b)
+{
+	const int	pivot_low = stack_a -> size / 3;
+	const int	pivot_high = stack_a -> size / 3 * 2;
+
+	if (dq_is_sorted(stack_a))
+		exit(EXIT_SUCCESS);
+}

@@ -6,7 +6,7 @@
 #    By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/01/24 13:33:02 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/01/25 00:14:41 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,22 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C ./Libft bonus
+	make -C ./Deque all
+	cp ./Deque/deque.a $(NAME)
 	cp ./Libft/libft.a $(NAME)
 	ar rc $@ $^
 	
-%.o : %.c ft_printf.h
+%.o : %.c push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(OBJS_B)
 	make -C ./Libft clean
+	make -C ./Deque clean
 
 fclean: clean
 	rm -f $(NAME)
 	rm -f ./Libft/libft.a
+	rm -f ./Deque/deque.a
 
 re : fclean all
