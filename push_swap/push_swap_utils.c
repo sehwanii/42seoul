@@ -6,18 +6,20 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:42:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:47:27 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:43:37 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	parse_input(char *argv[], t_deque *stack_a)
+int	*parse_input(char *argv[])
 {
 	int		idx;
 	char	**temp;
+	int		*arr;
 
 	idx = 0;
+
 	while (*argv)
 	{
 		temp = ft_split(argv[idx], ' ');

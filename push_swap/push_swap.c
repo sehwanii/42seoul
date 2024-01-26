@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:33:24 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:47:56 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:26:52 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 {
 	t_deque	*stack_a;
 	t_deque	*stack_b;
-
+	int		*input;
 
 	if (argc <= 1)
 	{
@@ -25,9 +25,8 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	atexit(free_stack(stack_a, stack_b));
-	init_buffer(stack_a, stack_b, argv);
-	parse_input(argv, stack_a);
-	dq_print_data(stack_a);
+	init(stack_a, stack_b, input);
+	//dq_print_data(stack_a);
 	if (stack_a -> size <= 5)
 		push_swap_small(stack_a, stack_b);
 	else
@@ -37,7 +36,7 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-void	init_buffer(t_deque *stack_a, t_deque *stack_b, char *argv[])
+void	init(t_deque *stack_a, t_deque *stack_b, char *argv[])
 {
 	stack_a = NULL;
 	stack_b = NULL;

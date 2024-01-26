@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:33:47 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:42:07 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:27:18 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 //int	push_swap(t_list *stack_a, t_list *stack_b, int arr[]);
 
-void	parse_input(char *argv[], t_deque *stack_a);
+int		*parse_input(char *argv[]);
+void	init(t_deque *stack_a, t_deque *stack_b, char *argv[]);
 
 void	push_swap_small(t_deque *stack_a, t_deque *stack_b);
 void	push_swap_two(t_deque *stack_a);
