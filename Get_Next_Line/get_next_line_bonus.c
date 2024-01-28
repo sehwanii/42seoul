@@ -6,42 +6,11 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:15:59 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/28 23:49:07 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/29 05:53:41 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-#include <stdio.h>
-int main()
-{
-	int fd = open("input.txt", O_RDONLY);
-
-    if (fd == -1) {
-
-        exit(EXIT_FAILURE);
-    }
-
-    // 여기서 파일 디스크립터(fd)를 사용하여 다양한 파일 작업을 수행할 수 있습니다.
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-	printf("%s",gnl(fd));
-    // 파일 닫기
-    close(fd);
-}
 
 int	split_word(char *s, char **ret, char *line)
 {
@@ -53,7 +22,7 @@ int	split_word(char *s, char **ret, char *line)
 	temp = (char *)malloc(BUFFER_SIZE + 1);
 	if (temp == NULL)
 		return (MALLOC_ERROR);
-	while (idx < s_len)
+	while (idx <= s_len)
 	{
 		temp[idx] = s[idx];
 		if (s[idx++] == '\n')
@@ -62,44 +31,37 @@ int	split_word(char *s, char **ret, char *line)
 			while (idx <= s_len)
 				*(line++) = s[idx++];
 			*ret = ft_strjoin(*ret, temp);
-			return (0);
+			return (PARSE_SUCCESS);
 		}
 	}
 	s[0] = '\0';
-	temp[s_len] = '\0';
 	*ret = ft_strjoin(*ret, temp);
 	return (1);
 }
 
 int	parse_buffer(char *s, char **ret, char *line, int *flag)
 {
+	int	temp;
+
 	if (*ret == NULL)
 	{
 		*ret = (char *)malloc(BUFFER_SIZE + 1);
 		if (*ret == NULL)
 		{
 			*flag = MALLOC_ERROR;
-			return (0);
+			return (PARSE_SUCCESS);
 		}
 		**ret = '\0';
 	}
-	if (split_word(s, ret, line) == MALLOC_ERROR)
-	{
+	temp = split_word(s, ret, line);
+	if (temp == MALLOC_ERROR || *ret == NULL)
 		*flag = MALLOC_ERROR;
-		return (MALLOC_ERROR);
-	}
-	else
-	{
-		if (*ret == NULL)
-			return (0);
-		return (1);
-	}
-	if (*ret == NULL)
-		return (0);
+	else if (temp == PARSE_SUCCESS)
+		return (PARSE_SUCCESS);
 	return (1);
 }
 
-char	*get_next_line(int fd, char **line, int *flag)
+char	*gnl(int fd, char **line, int *flag)
 {
 	char		buffer[BUFFER_SIZE + 1];
 	char		*ret;
@@ -107,48 +69,61 @@ char	*get_next_line(int fd, char **line, int *flag)
 
 	if (*flag == MALLOC_ERROR || fd < 0)
 		return (NULL);
+	if (*flag == READ_ALL && **line == '\0')
+		*flag = RETURN_ALL;
 	ret = NULL;
-	if (parse_buffer(*line, &ret, *line, flag) == 0)
+	if (parse_buffer(*line, &ret, *line, flag) == PARSE_SUCCESS)
 		return (ret);
 	size = read(fd, buffer, BUFFER_SIZE);
-	if (size == 0)
-		return (ret);
 	if (size == -1)
 	{
-		(*line)[0] = '\0';
 		free(ret);
 		return (NULL);
 	}
 	buffer[size] = '\0';
-	if (parse_buffer(buffer, &ret, *line, flag) == 0)
+	if (size == 0 || (*flag != MALLOC_ERROR && size < BUFFER_SIZE))
+		*flag = READ_ALL;
+	if (size == 0 || parse_buffer(buffer, &ret, *line, flag) == PARSE_SUCCESS)
 		return (ret);
-	ret = ft_strjoin(ret, get_next_line(fd, line, flag));
+	ret = ft_strjoin(ret, gnl(fd, line, flag));
 	return (ret);
 }
 
-char	*gnl(int fd)
+char	*get_next_line(int fd)
 {
 	static t_list	*head;
 	t_list			*node;
 	int				flag;
+	char			*ret;
 
-	if (fd < 0)
-		return (NULL);
 	flag = MALLOC_OK;
 	if (find_node(&head, &node, fd) == MALLOC_ERROR)
 		return (NULL);
-	return (get_next_line(fd, &(node -> line), &flag));
+	ret = gnl(fd, &(node -> line), &flag);
+	if (ret == NULL)
+	{
+		free_node(&head, fd);
+		return (NULL);
+	}
+	if (flag == MALLOC_ERROR || *ret == '\0')
+	{
+		free(ret);
+		free_node(&head, fd);
+		return (NULL);
+	}
+	else if (flag == RETURN_ALL)
+		free_node(&head, fd);
+	return (ret);
 }
 
 int	find_node(t_list **head, t_list **node, int fd)
 {
 	t_list	*cur;
-	t_list	*new;
 
 	cur = *head;
 	if (cur != NULL)
 	{
-		while (cur -> next)
+		while (cur)
 		{
 			if (cur -> fd == fd)
 			{

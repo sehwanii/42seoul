@@ -5,39 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 17:18:37 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/14 21:03:50 by sehwjang         ###   ########.fr       */
+/*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/01/29 05:56:01 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # include <unistd.h>
 # include <stdlib.h>
-#include <stdio.h>	//ㅈㅣ우기
-#include <fcntl.h>
-# define MALLOC_ERROR	0
-# define INIT_LINE_SIZE	8
-# define RET_BUF_COMPLETE 1
+# include <fcntl.h>
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 42
 # endif
+
+# define MALLOC_ERROR 	-1
+# define MALLOC_OK		0
+# define READ_ALL		1
+# define RETURN_ALL		2
+# define PARSE_SUCCESS	3
 
 typedef struct s_list
 {
-	char			line[BUFFER_SIZE + 1];
-	struct s_list	*next;
 	int				fd;
-	int				malloc_size;
+	char			*line;
+	struct s_list	*next;
 }					t_list;
 
 char	*get_next_line(int fd);
 
-
+char	*gnl(int fd, char **line, int *flag);
+int		parse_buffer(char *s, char **ret, char *line, int *flag);
+int		split_word(char *s, char **ret, char *line);
+int		find_node(t_list **head, t_list **node, int fd);
+void	free_node(t_list **head, int fd);
 size_t	ft_strlen(const char *s);
-size_t	ft_strchr(const char *s, int c);
-int	paste(char *dst, char *src, size_t start, size_t end);
-int	parse_buffer(char *read_buf, char *ret_buf, char *prev_buf, int *malloc_size);
-int	init_buffer(char **ret_buf, char *prev_buf, int *malloc_size);
-char	*ft_realloc(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+t_list	*ft_lstnew(int fd);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+
 #endif

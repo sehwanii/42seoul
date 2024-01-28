@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:14:44 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/26 20:03:14 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/29 05:15:23 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,34 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	while (temp -> next)
 		temp = temp -> next;
 	temp -> next = new;
+}
+
+void	free_node(t_list **head, int fd)
+{
+	t_list	*cur;
+	t_list	*next;
+
+	cur = *head;
+	if (cur -> fd == fd)
+	{
+		next = cur -> next;
+		free(cur -> line);
+		free(cur);
+		*head = next;
+		return ;
+	}
+	while (cur -> next)
+	{
+		if (cur -> next -> fd == fd)
+		{
+			next = cur -> next -> next;
+			free(cur -> next -> line);
+			free(cur -> next);
+			cur -> next = next;
+			return ;
+		}
+		cur = cur -> next;
+	}
 }
 
 char	*ft_strjoin(char *s1, char *s2)
