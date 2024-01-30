@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:33:47 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/26 14:27:18 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/30 22:09:29 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@
 # include "Libft/libft.h"
 # include "Deque/deque.h"
 
-//int	push_swap(t_list *stack_a, t_list *stack_b, int arr[]);
+# define ERROR	-1
+void	push_swap(t_deque *stack_a, t_deque *stack_b);
 
-int		*parse_input(char *argv[]);
+void	parse_input(char *argv[], t_deque *stack_a);
 void	init(t_deque *stack_a, t_deque *stack_b, char *argv[]);
+void	check_input(t_deque *stack_a);
+void	order_index(t_deque *stack_a);
+void	get_index(t_deque *stack_a, int *arr);
 
 void	push_swap_small(t_deque *stack_a, t_deque *stack_b);
 void	push_swap_two(t_deque *stack_a);
-void	push_swap_three(t_deque *stack_a);
+void	push_swap_three(t_deque *stack_a, t_deque *stack_b);
 void	push_swap_four(t_deque *stack_a, t_deque *stack_b);
 void	push_swap_five(t_deque *stack_a, t_deque *stack_b);
 
@@ -47,4 +51,6 @@ void	rr_op(t_deque *stack_a, t_deque *stack_b);
 void	rev_rr_op(t_deque *stack_a, t_deque *stack_b);
 
 void	ft_write(int fd, char *str);
+void	rotate_stack(t_deque *stack, t_data data);
+void	divide_stack(t_deque *stack_a, t_deque *stack_b, int low, int high);
 #endif

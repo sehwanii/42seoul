@@ -13,15 +13,17 @@ all : $(NAME)
 
 
 $(NAME) : $(OBJECTS)
-	ar rc $@ $^
+	@ar rc $@ $^
 
 %.o : %.c deque.h
-	$(CC) $(CFLAGS) -g3 -c $< -o $@
+	@$(CC) $(CFLAGS) -g3 -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS) $(OBJS_B)
-
+	@rm -f $(OBJECTS) $(OBJS_B)
+	echo "clean deque"
+	
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	echo "fclean deque"
 
 re : fclean all

@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 00:22:36 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:41:37 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:57:01 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	sa_op(t_deque *stack_a)
 {
-	ft_write(1, "sa");
+	ft_write(1, "sa\n");
 	s_op(stack_a);
 	return ;
 }
 
 void	sb_op(t_deque *stack_b)
 {
-	ft_write(1, "sb");
+	ft_write(1, "sb\n");
 	s_op(stack_b);
 	return ;
 }
@@ -48,8 +48,8 @@ void	s_op(t_deque *stack)
 void	ss_op(t_deque *stack_a, t_deque *stack_b)
 {
 	ft_write(1, "ss\n");
-	s(stack_a);
-	s(stack_b);
+	s_op(stack_a);
+	s_op(stack_b);
 	return ;
 }
 

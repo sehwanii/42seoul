@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 21:58:59 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 00:48:48 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:49:47 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ t_data	dq_pop_last(t_deque *pdeq);
 
 t_data	dq_get_first(t_deque *pdeq);
 t_data	dq_get_last(t_deque *pdeq);
+t_data	dq_get_min_data(t_deque *pdeq);
+t_data	dq_get_max_data(t_deque *pdeq);
 
 void	dq_print_data(t_deque *pdeq);
 #endif

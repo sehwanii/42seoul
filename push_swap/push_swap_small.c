@@ -6,12 +6,12 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 00:49:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:39:18 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/30 22:04:15 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+#include <stdio.h>
 void	push_swap_small(t_deque *stack_a, t_deque *stack_b)
 {
 	if (stack_a -> size == 1)
@@ -19,100 +19,97 @@ void	push_swap_small(t_deque *stack_a, t_deque *stack_b)
 	else if (stack_a -> size == 2)
 		push_swap_two(stack_a);
 	else if (stack_a -> size == 3)
-		push_swap_three(stack_a);
+		push_swap_three(stack_a, stack_b);
 	else if (stack_a -> size == 4)
 		push_swap_four(stack_a, stack_b);
 	else
 		push_swap_five(stack_a, stack_b);
+	exit(EXIT_SUCCESS);
 }
 
 void	push_swap_two(t_deque *stack_a)
 {
-	if (dq_is_sorted(stack_a))
+	if (dq_is_sorted(stack_a) == 1)
 		return ;
 	else
 	{
-		ft_write(1, "ra\n");
+		ra_op(stack_a);
 		return ;
 	}
 }
 
-void	push_swap_three(t_deque *stack_a)
+void	push_swap_three(t_deque *stack_a, t_deque *stack_b)
 {
-	if (dq_get_last(stack_a) == 2)
+	int		is_sorted;
+	t_data	min_data;
+	t_data	max_data;
+
+	is_sorted = dq_is_sorted(stack_a);
+	min_data = dq_get_min_data(stack_a);
+	max_data = dq_get_max_data(stack_a);
+	if (is_sorted == 1)
+		return ;
+	else if (is_sorted == 0)
+		rotate_stack(stack_a, min_data);
+	else if (dq_get_first(stack_a) == min_data)
 	{
-		dq_pop_last(stack_a);
-		push_swap_two(stack_a);
+		pb_op(stack_a, stack_b);
+		ra_op(stack_a);
+		pa_op(stack_a, stack_b);
 	}
-	else if (dq_get_first(stack_a) == 2)
+	else if (dq_get_first(stack_a) == max_data)
 	{
-		ra(stack_a);
-		dq_pop_last(stack_a);
-		push_swap_two(stack_a);
-	}
-	else if (dq_get_first(stack_a) == 1)
-	{
-		dq_pop_first(stack_a);
-		ft_write(1, "rra\n");
+		sa_op(stack_a);
+		rra_op(stack_a);
 	}
 	else
-	{
-		ft_write(1, "pa\n");
-		ft_write(1, "ra\n");
-	}
+		sa_op(stack_a);
 }
 
 void	push_swap_four(t_deque *stack_a, t_deque *stack_b)
 {
-	t_node	*cur;
+	int	is_sorted;
 
-	cur = stack_a -> head;
-	if (dq_get_first(stack_a) == 3)
+	is_sorted = dq_is_sorted(stack_a);
+	if (is_sorted == 1)
+		return ;
+	else if (is_sorted == 0)
 	{
-		rra(stack_a);
-		pb(stack_a, stack_b);
-		push_swap_three(stack_a);
-		ft_write(1, "pa\n");
-		ft_write(1, "ra\n");
+		rotate_stack(stack_a, 0);
+		return ;
 	}
+	if (dq_get_last(stack_a) == 3)
+		rra_op(stack_a);
 	else
 	{
-		while (cur -> data != 3)
-		{
-			cur = cur -> next;
-			sa(stack_a);
-		}
-		pb(stack_a, stack_b);
-		push_swap_three(stack_a);
-		ft_write(1, "pa\n");
-		ft_write(1, "ra\n");
+		while (dq_get_first(stack_a) != 3)
+			ra_op(stack_a);
 	}
+	pb_op(stack_a, stack_b);
+	push_swap_three(stack_a, stack_b);
+	pa_op(stack_a, stack_b);
+	ra_op(stack_a);
 }
 
 void	push_swap_five(t_deque *stack_a, t_deque *stack_b)
 {
-	t_node	*cur;
+	int	is_sorted;
 
-	cur = stack_a -> head;
-	if (dq_get_first(stack_a) == 4)
-	{
-		rra(stack_a);
-		pb(stack_a, stack_b);
-		push_swap_three(stack_a);
-		ft_write(1, "pa\n");
-		ft_write(1, "ra\n");
-	}
+	is_sorted = dq_is_sorted(stack_a);
+	if (is_sorted == 1)
+		return ;
+	else if (is_sorted == 0)
+		rotate_stack(stack_a, 0);
+	if (dq_get_last(stack_a) == 4)
+		rra_op(stack_a);
 	else
 	{
-		while (cur -> data != 4)
-		{
-			cur = cur -> next;
-			sa(stack_a);
-		}
-		pb(stack_a, stack_b);
-		push_swap_four(stack_a, stack_b);
-		ft_write(1, "pa\n");
-		ft_write(1, "ra\n");
+		while (dq_get_first(stack_a) != 4)
+			ra_op(stack_a);
 	}
+	pb_op(stack_a, stack_b);
+	push_swap_four(stack_a, stack_b);
+	pa_op(stack_a, stack_b);
+	ra_op(stack_a);
 }
 

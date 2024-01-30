@@ -6,7 +6,7 @@
 #    By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/14 15:02:36 by sehwjang          #+#    #+#              #
-#    Updated: 2024/01/14 15:02:38 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/01/29 06:59:18 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,14 @@ bonus :
 	make WITH_BONUS=1 all
 
 $(NAME) : $(OBJECTS)
-	ar rc $@ $^
+	@ar rc $@ $^
 
 %.o : %.c libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(OBJS_B)
-
+	@rm -f $(OBJS) $(OBJS_B)
+	
 fclean: clean
 	rm -f $(NAME)
 

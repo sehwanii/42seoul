@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 12:45:06 by sehwjang          #+#    #+#             */
-/*   Updated: 2023/11/03 16:32:41 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/01/30 03:23:55 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_atoi(const char *str)
 		sign = -1;
 		i++;
 	}
+	if (!ft_isdigit(str[i]))
+		exit(EXIT_FAILURE);
 	while (ft_isdigit(str[i]))
 		ret = ret * 10 + (str[i++] - '0');
 	return ((int)(ret * sign));
