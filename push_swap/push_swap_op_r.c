@@ -6,22 +6,24 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 01:37:47 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/25 01:37:49 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:15:03 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra_op(t_deque *stack_a)
+void	ra_op(t_deque *stack_a, int bonus)
 {
-	ft_write(1, "ra\n");
+	if (bonus == 0)
+		ft_write(1, "ra\n");
 	r_op(stack_a);
 	return ;
 }
 
-void	rb_op(t_deque *stack_b)
+void	rb_op(t_deque *stack_b, int bonus)
 {
-	ft_write(1, "rb\n");
+	if (bonus == 0)
+		ft_write(1, "rb\n");
 	r_op(stack_b);
 	return ;
 }
@@ -34,16 +36,18 @@ void	r_op(t_deque *stack)
 	return ;
 }
 
-void	rra_op(t_deque *stack_a)
+void	rra_op(t_deque *stack_a, int bonus)
 {
-	ft_write(1, "rra\n");
+	if (bonus == 0)
+		ft_write(1, "rra\n");
 	rev_r_op(stack_a);
 	return ;
 }
 
-void	rrb_op(t_deque *stack_b)
+void	rrb_op(t_deque *stack_b, int bonus)
 {
-	ft_write(1, "rrb\n");
+	if (bonus == 0)
+		ft_write(1, "rrb\n");
 	rev_r_op(stack_b);
 	return ;
 }

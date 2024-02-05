@@ -6,13 +6,14 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 12:45:06 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/30 03:23:55 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:11:45 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static int	ft_isspace(int c);
+static void	print_error(const char *error_msg);
 
 int	ft_atoi(const char *str)
 {
@@ -25,17 +26,17 @@ int	ft_atoi(const char *str)
 	ret = 0;
 	while (ft_isspace(str[i]))
 		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
-	{
+	if (str[i] == '-')
 		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
 		i++;
-	}
 	if (!ft_isdigit(str[i]))
-		exit(EXIT_FAILURE);
+		print_error("ERROR\n");
 	while (ft_isdigit(str[i]))
 		ret = ret * 10 + (str[i++] - '0');
+	ret = ret * sign;
+	if (ret > 2147483647 || ret < -2147483648)
+		print_error("ERROR\n");
 	return ((int)(ret * sign));
 }
 
@@ -46,4 +47,10 @@ static int	ft_isspace(int c)
 	else if (c == 32)
 		return (1);
 	return (0);
+}
+
+static void	print_error(const char *error_msg)
+{
+	write(2, error_msg, ft_strlen(error_msg));
+	exit(EXIT_FAILURE);
 }

@@ -6,38 +6,11 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:42:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/30 22:03:43 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:16:46 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-
-void	parse_input(char *argv[], t_deque *stack_a)
-{
-	int		idx;
-	char	**temp;
-
-	idx = 0;
-	argv++;
-	while (*argv != NULL)
-	{
-		temp = ft_split(*argv, ' ');
-		while (*temp != NULL)
-		{
-			dq_add_last(stack_a, ft_atoi(*temp));
-			temp++;
-		}
-		argv++;
-	}
-	return ;
-}
-
-void	ft_write(int fd, char *str)
-{
-	if (write(fd, str, ft_strlen(str)) == -1)
-		exit(EXIT_FAILURE);
-}
 
 void	free_stack(t_deque *stack_a, t_deque *stack_b)
 {
@@ -61,13 +34,13 @@ void	free_stack(t_deque *stack_a, t_deque *stack_b)
 	return ;
 }
 
-void	rotate_stack(t_deque *stack_a, t_data data)
+void	rotate_stack(t_deque *stack, int type, t_data data)
 {
 	t_node	*cur;
 	size_t	idx;
 
 	idx = 0;
-	cur = stack_a -> head;
+	cur = stack -> head;
 	while (cur)
 	{
 		if (cur -> data == data)
@@ -75,19 +48,82 @@ void	rotate_stack(t_deque *stack_a, t_data data)
 		idx++;
 		cur = cur -> next;
 	}
-	if (idx <= stack_a -> size / 2)
+	if (idx <= stack -> size / 2)
 	{
-		while (dq_get_first(stack_a) != data)
-			ra_op(stack_a);
+		while (dq_get_first(stack) != data)
+		{
+			if (type == 0)
+				ra_op(stack, 0);
+			else
+				rb_op(stack, 0);
+		}
 	}
 	else
 	{
-		while (dq_get_first(stack_a) != data)
-			rra_op(stack_a);
+		while (dq_get_first(stack) != data)
+		{
+			if (type == 0)
+				rra_op(stack, 0);
+			else
+				rrb_op(stack, 0);
+		}
 	}
 }
 
-void	print_error(void)
+t_data	calc_op_num(t_deque *stack_a, t_deque *stack_b)
 {
-	write(2, "ERROR", 5);
+	t_node	*cur;
+	size_t	idx;
+	int		min;
+	int		temp;
+	int		ret_data;
+
+	min = MAX_INT;
+	ret_data = stack_b -> head -> data;
+	cur = stack_b -> head;
+	idx = 0;
+	while (idx < stack_b -> size)
+	{
+		temp = idx;
+		if (idx > stack_b -> size / 2)
+			temp = stack_b -> size - idx;
+		temp += abs(find_place(stack_a, cur -> data));
+		if (temp < min)
+		{
+			min = temp;
+			ret_data = cur -> data;
+		}
+		idx++;
+		cur = cur -> next;
+	}
+	return (ret_data);
+}
+
+int	find_place(t_deque *stack, t_data data)
+{
+	t_node	*cur;
+	int		idx;
+	t_data	prev;
+
+	idx = 0;
+	prev = dq_get_last(stack);
+	if (dq_get_max_data(stack) < data)
+		idx = dq_find_index(stack, dq_get_max_data(stack)) + 1;
+	else if (dq_get_min_data(stack) > data)
+		idx = dq_find_index(stack, dq_get_min_data(stack));
+	else
+	{
+		cur = stack->head;
+		while (idx < (int)(stack -> size))
+		{
+			if ((cur -> data > data && prev < data))
+				break ;
+			idx++;
+			prev = cur -> data;
+			cur = cur -> next;
+		}
+	}
+	if (idx > (int)(stack -> size / 2))
+		idx = ((int)(stack)->size - idx) * -1;
+	return (idx);
 }

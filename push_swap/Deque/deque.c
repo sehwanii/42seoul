@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:11:22 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/30 21:34:20 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:52:50 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ int	dq_find_index(t_deque *pdeq, t_data data)
 	return (-1);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-void	dq_print_data(t_deque *pdeq)
-{
-	t_node	*cur;
-	size_t	idx;
+// void	dq_print_data(t_deque *pdeq)
+// {
+// 	t_node	*cur;
+// 	size_t	idx;
 
-	cur = pdeq -> head;
-	idx = 0;
-	while (idx < pdeq -> size)
-	{
-		printf("%zu : %d\n", idx, cur -> data);
-		idx++;
-		cur = cur -> next;
-	}
-}
+// 	cur = pdeq -> head;
+// 	idx = 0;
+// 	while (idx < pdeq -> size)
+// 	{
+// 		printf("%zu : %d\n", idx, cur -> data);
+// 		idx++;
+// 		cur = cur -> next;
+// 	}
+// }
