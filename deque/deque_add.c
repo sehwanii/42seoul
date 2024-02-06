@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 22:30:36 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 22:57:03 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:26:48 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	dq_add_first(t_deque *pdeq, t_data data)
 	pdeq -> size++;
 	return ;
 }
+
 void	dq_add_last(t_deque *pdeq, t_data data)
 {
 	t_node	*new;

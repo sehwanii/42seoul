@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 21:58:59 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/01/24 22:47:45 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:29:33 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_deque
 
 void	dq_init(t_deque *pdeq);
 int		dq_is_empty(t_deque *pdeq);
+void	dq_clear(t_deque *pdeq);
 
 void	dq_add_first(t_deque *pdeq, t_data data);
 void	dq_add_last(t_deque *pdeq, t_data data);

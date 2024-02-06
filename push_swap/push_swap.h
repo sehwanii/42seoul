@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:33:47 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/05 20:16:11 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:59:48 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	rra_op(t_deque *stack_a, int bonus);
 void	rrb_op(t_deque *stack_b, int bonus);
 
 void	rev_r_op(t_deque *stack);
-void	rr_op(t_deque *stack_a, t_deque *stack_b);
-void	rev_rr_op(t_deque *stack_a, t_deque *stack_b);
+void	rr_op(t_deque *stack_a, t_deque *stack_b, int bonus);
+void	rev_rr_op(t_deque *stack_a, t_deque *stack_b, int bonus);
 
 void	ft_write(int fd, char *str);
 void	rotate_stack(t_deque *stack, int type, t_data data);
