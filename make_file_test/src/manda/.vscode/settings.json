@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"complex": "c",
+		"__hash_table": "cpp",
+		"algorithm": "cpp",
+		"sstream": "c",
+		"unistd.h": "c"
+	}
+}
