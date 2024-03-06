@@ -5,7 +5,8 @@ include $(TOPDIR)/Rules.mk
 
 LIBS =	libft\
 		ft_printf\
-		get_next_line
+		get_next_line\
+		my_utils
 
 all bonus clean fclean re:
 	@$(foreach lib, $(LIBS), $(MAKE) TOPDIR=$(TOPDIR) -C $(lib) $@;)
