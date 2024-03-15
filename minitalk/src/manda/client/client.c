@@ -14,25 +14,44 @@
 
 t_node	g_node;
 
-void	to_binary(int pid, char *str)
+int	send_char(int pid, char c)
 {
 	int	idx;
-	int	mask;
+	int	odd;
 
-	mask = 0b01111111;
+	idx = 7;
+	while (idx >= 0)
+	{
+		if ((c & (1 << idx)) == 0)
+		{
+			kill(pid, SIGUSR1);
+			odd++;
+		}
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
+		idx--;
+	}
+	if (odd & 2 == 0)
+		kill(pid, SIGUSR1);
+	else
+		kill(pid, SIGUSR2);
+	usleep(100);
+	while (1)
+	{
+		
+	}
+}
+
+void	send_line(int pid, char *str)
+{
+	int is_success;
+
 	while (*str)
 	{
-		idx = 7;
-		while (idx >= 0)
-		{
-			if ((*str & (1 << idx)) == 0)
-				kill(pid, SIGUSR1);
-			else
-				kill(pid, SIGUSR2);
-			usleep(20);
-			idx--;
-		}
-		str++;
+		is_success = send_word(pid, *str);
+		if (is_success)
+			str++;
 	}
 }
 
@@ -68,10 +87,10 @@ int	main(int argc, char **argv)
 		kill(pid, SIGUSR1);
 		if (g_node.flag == 1)
 		{
-			to_binary(pid, argv[2]);
-			return (0);
+			g_node.flag = -1;
+			send_line(pid, argv[2]);
 		}
 		write(1,"!",1);
-		usleep(100);
+		usleep(1000);
 	}
 }

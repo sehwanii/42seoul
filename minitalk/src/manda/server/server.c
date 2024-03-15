@@ -22,7 +22,7 @@ void	sig_handler(int signo, siginfo_t *info, void *context)
 	(void)context;
 	if (g_node.pid == 0)
 		g_node.pid = info->si_pid;
-	if (g_node.pid == info->si_pid)
+	if (g_node.pid != info->si_pid)
 	{
 		kill(info->si_pid, SIGUSR2);
 		return ;

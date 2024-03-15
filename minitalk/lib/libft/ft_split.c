@@ -96,14 +96,12 @@ char	**ft_split(char const *s, char c)
 	size_t			word_num;
 	char			*str;
 	char			**ret;
-	size_t			idx;
 
 	str = ft_strdup(s);
 	if (str == NULL)
 		return (0);
 	change_zero(str, c, s_len);
 	word_num = count_word(str, s_len);
-	idx = 0;
 	ret = (char **)malloc(sizeof(char *) * (word_num + 1));
 	if (!ret)
 	{
