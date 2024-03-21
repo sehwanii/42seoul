@@ -42,8 +42,6 @@ void	sig_handler(int signo, siginfo_t *info, void *context)
 	return ;
 }
 
-
-
 int	main(void)
 {
 	const pid_t			id = getpid();
@@ -68,21 +66,51 @@ int	main(void)
 		}
 	}
 }
-
+#include <stdio.h>
 static void	get_line(int bit)
 {
 	static int	word;
 	static int	idx;
+	static int	parity;
 
-	word = word << 1;
-	word += bit;
+	if (idx >= 8 && (bit == (parity%2)))
+	{
+		kill(g_node.pid, SIGUSR1);
+		printf("\033[0;32m parity = %d, bit = %d OK :", parity, bit);
+		fflush(stdout);
+	}
+	else if (idx >= 8)
+	{
+		kill(g_node.pid, SIGUSR2);
+		printf("\033[0;31m parity = %d, bit = %d KO :", parity, bit);
+		fflush(stdout);
+		printf("\n");
+		fflush(stdout);
+		idx = 0;
+		word = 0;
+		g_node.pid = 0;
+		parity = 0;
+		return ;
+	}
+	else
+	{
+		printf("%d",bit);
+		fflush(stdout);
+		word = word << 1;
+		word += bit;
+		parity += bit;
+	}
 	idx++;
-	if (idx >= 8)
+	if (idx == 9)
 	{
 		kill(g_node.pid, SIGUSR1);
 		write(1, &word, 1);
+		printf("\n");
+		fflush(stdout);
 		idx = 0;
 		word = 0;
+		g_node.pid = 0;
+		parity = 0;
 	}
 }
 

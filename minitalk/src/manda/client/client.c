@@ -20,6 +20,7 @@ int	send_char(int pid, char c)
 	int	odd;
 
 	idx = 7;
+	odd = 0;
 	while (idx >= 0)
 	{
 		if ((c & (1 << idx)) == 0)
@@ -32,24 +33,25 @@ int	send_char(int pid, char c)
 		usleep(100);
 		idx--;
 	}
-	if (odd & 2 == 0)
+	if ((odd % 2) == 0)
 		kill(pid, SIGUSR1);
 	else
 		kill(pid, SIGUSR2);
-	usleep(100);
-	while (1)
-	{
-		
-	}
+	usleep(1000);
+	if (g_node.flag == 1)
+		return (1);
+	else
+		return (0);
 }
-
+#include <stdio.h>
 void	send_line(int pid, char *str)
 {
 	int is_success;
 
 	while (*str)
 	{
-		is_success = send_word(pid, *str);
+		printf("%c", *str);
+		is_success = send_char(pid, *str);
 		if (is_success)
 			str++;
 	}
@@ -85,12 +87,12 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		kill(pid, SIGUSR1);
+		usleep(100);
 		if (g_node.flag == 1)
 		{
 			g_node.flag = -1;
 			send_line(pid, argv[2]);
+			return (0);
 		}
-		write(1,"!",1);
-		usleep(1000);
 	}
 }
