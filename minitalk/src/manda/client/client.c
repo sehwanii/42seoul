@@ -3,61 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 20:19:08 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/03/06 17:02:29 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/02 21:10:50 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
-
+#include <stdio.h>
 t_node	g_node;
 
-int	send_char(int pid, char c)
+static void	to_binary(int pid, char *str)
 {
 	int	idx;
-	int	odd;
-
-	idx = 7;
-	odd = 0;
-	while (idx >= 0)
-	{
-		if ((c & (1 << idx)) == 0)
-		{
-			kill(pid, SIGUSR1);
-			odd++;
-		}
-		else
-			kill(pid, SIGUSR2);
-		usleep(100);
-		idx--;
-	}
-	if ((odd % 2) == 0)
-		kill(pid, SIGUSR1);
-	else
-		kill(pid, SIGUSR2);
-	usleep(1000);
-	if (g_node.flag == 1)
-		return (1);
-	else
-		return (0);
-}
-#include <stdio.h>
-void	send_line(int pid, char *str)
-{
-	int is_success;
+	//int	parity;
 
 	while (*str)
 	{
-		printf("%c", *str);
-		is_success = send_char(pid, *str);
-		if (is_success)
-			str++;
+		idx = 7;
+		//parity = 0;
+		while (idx >= 0)
+		{
+			if ((*str & (1 << idx)) == 0)
+				kill(pid, SIGUSR1);
+			else
+			{
+				kill(pid, SIGUSR2);
+				//parity ++;
+			}
+			usleep(1000);
+			idx --;
+		}
+		// if (parity % 2)
+		// 	kill(pid, SIGUSR2);
+		// else
+		// 	kill(pid, SIGUSR1);
+		usleep(1000);
+		str++;
+	}
+	idx = -1;
+	while (++idx <= 8)
+	{
+		ft_printf("1");
+		kill(pid, SIGUSR2);
+		usleep(1000);
 	}
 }
 
-void	sig_handler(int signo, siginfo_t *info, void *context)
+static void	sig_handler(int signo, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
@@ -84,15 +78,18 @@ int	main(int argc, char **argv)
 	s_sigact.sa_sigaction = &sig_handler;
 	sigaction(SIGUSR1, &s_sigact, NULL);
 	sigaction(SIGUSR2, &s_sigact, NULL);
+	int i = 0;
 	while (1)
 	{
-		kill(pid, SIGUSR1);
-		usleep(100);
+        kill(pid, SIGUSR1);
+        usleep(100000); // 10초 대기
 		if (g_node.flag == 1)
 		{
-			g_node.flag = -1;
-			send_line(pid, argv[2]);
+			to_binary(pid, argv[2]);
 			return (0);
 		}
+        printf("waiting...%d\n",i++);
+        fflush(stdout);
+		sleep(1);
 	}
 }
