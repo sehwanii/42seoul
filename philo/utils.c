@@ -39,12 +39,14 @@ int	my_atoi(const char *str)
 	if (!ft_isdigit(str[i]))
 		exit_msg("Invalid Argument\n");
 	while (ft_isdigit(str[i]))
+	{
 		ret = ret * 10 + (str[i++] - '0');
+		if ((ret * sign) > 2147483647 || (ret * sign) < -2147483648)
+			exit_msg("Error : Arguments Overflow\n");
+	}
 	if (str[i] != '\0')
 		exit_msg("Invalid Argument\n");
 	ret = ret * sign;
-	if (ret > 2147483647 || ret < -2147483648)
-		exit_msg("Invalid Argument\n");
 	return ((int)ret);
 }
 

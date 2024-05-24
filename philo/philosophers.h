@@ -29,7 +29,14 @@ typedef struct s_info
 	int	n_eat;
 }	t_info;
 
+struct thread_info { /* thread_start()의 인수로 사용됨 */
+           pthread_t thread_id; /* pthread_create()가 반환한 ID */
+           int thread_num; /* 애플리케이션 정의 스레드 # */
+           char *argv_string; /* 명령줄 인수에서 */
+};
 
+
+void	init_info(t_info *info, int argc, char *argv[]);
 
 //utils.c
 int		my_atoi(const char *str);

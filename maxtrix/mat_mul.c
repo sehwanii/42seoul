@@ -28,4 +28,5 @@ t_mat	*mul_mat(t_mat m1, t_mat m2)
 			(*ret_mat)[i][j] = m1[i][j] * m2[i][j];
 		}
 	}
+	return (ret_mat);
 }
