@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 08:47:05 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/26 08:56:25 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/26 15:43:26 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 static int	ft_isspace(int c)
 {
 	if (c >= 9 && c <= 13)
 		return (1);
 	else if (c == 32)
+		return (1);
+	return (0);
+}
+
+static int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
@@ -66,3 +73,4 @@ size_t	ft_strlen(const char *s)
 		cnt++;
 	return (cnt);
 }
+
