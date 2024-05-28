@@ -24,13 +24,17 @@
 # define LEFT	0
 # define RIGHT	1
 
-enum	e_status
-{
-	e_eat = 0,
-	e_think,
-	e_sleep,
-	e_die
-};
+# define OWNED		true
+# define NOT_OWNED	false
+
+# define IS_DONE	0
+# define IS_DEAD	1
+
+# define FORK_MSG	"has taken a fork"
+# define EAT_MSG	"is eating"
+# define SLEEP_MSG	"is sleeping"
+# define THINK_MSG	"is thinking"
+# define DIE_MSG	"died"
 
 typedef struct s_info
 {
@@ -39,19 +43,21 @@ typedef struct s_info
 	int				t_eat;
 	int				t_sleep;
 	int				n_to_eat;
-	bool			is_dead;
-	int				is_done;
-	// struct timeval	start_time;
+	pthread_mutex_t	print_mutex;
+	struct timeval	start_tv;
 }	t_info;
 
 typedef struct s_philo
 {
 	int				id;
 	int				n_eat;
+	bool			is_done;
 	t_info			*info;
-	pthread_mutex_t	mutex[2];
-	bool			fork[2];
-	enum e_status	status;
+	pthread_mutex_t	*fork_mutex[2];
+	bool			*fork[2];
+	pthread_mutex_t	status_mutex[2];
+	bool			status[2];
+	struct timeval	eat_tv;
 }	t_philo;
 
 struct s_thread_info 
@@ -71,8 +77,17 @@ size_t	ft_strlen(const char *s);
 void	*do_philo(void *data);
 
 //init.c
-void	init_threads(t_info *info, t_philo *philo, pthread_t *thread);
+void	init_threads(t_info *info, t_philo **philo, pthread_t **thread);
 void	init_philo(t_philo *philo, t_info *info);
 void	init_info(t_info *info, int argc, char *argv[]);
+
+//philo_time.c
+void		spend_time(long long time);
+void		print_time_stamp(t_philo *philo, const char *action);
+long long	diff_tv(struct timeval *tv1, struct timeval	*tv2);
+//philo_action.c
+void    philo_eat(t_philo *philo, struct timeval *eat_tv);
+void    philo_sleep(t_philo *philo);
+void    philo_think(t_philo *philo);
 
 #endif
