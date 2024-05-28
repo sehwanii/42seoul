@@ -29,6 +29,7 @@
 
 # define IS_DONE	0
 # define IS_DEAD	1
+# define EAT_TIME	2
 
 # define FORK_MSG	"has taken a fork"
 # define EAT_MSG	"is eating"
@@ -55,7 +56,7 @@ typedef struct s_philo
 	t_info			*info;
 	pthread_mutex_t	*fork_mutex[2];
 	bool			*fork[2];
-	pthread_mutex_t	status_mutex[2];
+	pthread_mutex_t	status_mutex[3];
 	bool			status[2];
 	struct timeval	eat_tv;
 }	t_philo;
@@ -78,7 +79,7 @@ void	*do_philo(void *data);
 
 //init.c
 void	init_threads(t_info *info, t_philo **philo, pthread_t **thread);
-void	init_philo(t_philo *philo, t_info *info);
+void	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork);
 void	init_info(t_info *info, int argc, char *argv[]);
 
 //philo_time.c
@@ -86,7 +87,7 @@ void		spend_time(long long time);
 void		print_time_stamp(t_philo *philo, const char *action);
 long long	diff_tv(struct timeval *tv1, struct timeval	*tv2);
 //philo_action.c
-void    philo_eat(t_philo *philo, struct timeval *eat_tv);
+void    philo_eat(t_philo *philo);
 void    philo_sleep(t_philo *philo);
 void    philo_think(t_philo *philo);
 

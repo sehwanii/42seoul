@@ -19,7 +19,7 @@ SRCS_PHILO		= 	main.c \
 					philo.c \
 					philo_action.c \
 					philo_time.c \
-
+					
 SRCS_PHILO_B	=	main.c \
 
 OBJS_PHILO		=	$(SRCS_PHILO:.c=.o)

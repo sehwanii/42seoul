@@ -12,14 +12,10 @@
 
 #include "philo.h"
 
-void	init_philo(t_philo *philo, t_info *info)
+void	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork)
 {
-	pthread_mutex_t	*mutex;
-	bool			*fork;
-	int				idx;
+	int	idx;
 	
-	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->p_num);
-	fork = (bool *)malloc(sizeof(bool) * info->p_num);
 	idx = 0;
 	while (idx < info->p_num)
 	{
@@ -35,6 +31,7 @@ void	init_philo(t_philo *philo, t_info *info)
 		philo[idx].fork_mutex[RIGHT] = &(mutex[(idx + 1) % info->p_num]);
 		pthread_mutex_init(&(philo[idx].status_mutex[IS_DONE]), NULL);
 		pthread_mutex_init(&(philo[idx].status_mutex[IS_DEAD]), NULL);
+		pthread_mutex_init(&(philo[idx].status_mutex[EAT_TIME]), NULL);
 		philo[idx].status[IS_DONE] = false;
 		philo[idx].status[IS_DEAD] = false;
 		gettimeofday(&philo[idx++].eat_tv, NULL);
@@ -43,18 +40,21 @@ void	init_philo(t_philo *philo, t_info *info)
 
 void	init_threads(t_info *info, t_philo **philo, pthread_t **thread)
 {
-	int	idx;
-
+	pthread_mutex_t	*mutex;
+	bool			*fork;
+	int				idx;
+	
+	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->p_num);
+	fork = (bool *)malloc(sizeof(bool) * info->p_num);
 	*thread = (pthread_t *)malloc(sizeof(pthread_t) * info->p_num);
 	*philo = (t_philo *)malloc(sizeof(t_philo) * info->p_num);
-	init_philo(*philo, info);
+	init_philo(*philo, info, mutex, fork);
 	idx = 0;
 	while (idx < info->p_num)
 	{
 		pthread_create(&(*thread)[idx], NULL, do_philo, (void *)(&(*philo)[idx]));
 		idx++;
 	}
-	idx = 0;
 }
 
 void	init_info(t_info *info, int argc, char *argv[])

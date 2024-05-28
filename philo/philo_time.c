@@ -32,7 +32,7 @@ void	spend_time(long long time)
 	gettimeofday(&cur_tv, NULL);
 	while (time * 1000 >= diff_tv(&cur_tv, &start_tv))
 	{
-		usleep(100);
+		usleep(10);
 		gettimeofday(&cur_tv, NULL);
 	}
 }
@@ -43,9 +43,9 @@ void	print_time_stamp(t_philo *philo, const char *action)
 	struct timeval	cur_tv;
 
 	info = philo->info;
-	pthread_mutex_lock(&info->print);
+	pthread_mutex_lock(&info->print_mutex);
 	gettimeofday(&cur_tv, NULL);
-	printf("%lf %d %s\n", (cur_tv.tv_sec - info->start_tv.tv_sec) * 1000 + \
-		(float)(cur_tv.tv_usec - info->start_tv.tv_usec) / 1000,philo->id, action);
-	pthread_mutex_unlock(&info->print);	
+	printf("%ld %d %s\n", (cur_tv.tv_sec - info->start_tv.tv_sec) * 1000 + \
+		(cur_tv.tv_usec - info->start_tv.tv_usec) / 1000, philo->id, action);
+	pthread_mutex_unlock(&info->print_mutex);	
 }

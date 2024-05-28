@@ -15,16 +15,20 @@
 void	*do_philo(void *data)
 {
 	t_philo			*philo;
-	int				idx;
-	struct timeval	eat_tv;
+	//t_info			*info;
+	//int				idx;
 
 	philo = data;
-	eat_tv = philo->info->start_tv;
-	idx = 0;
-	//while (philo->status != e_die)
-	while (idx++ < 10)
+	//info = philo->info;
+	pthread_mutex_lock(&philo->status_mutex[EAT_TIME]);
+	philo->eat_tv = philo->info->start_tv;
+	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
+	// if (philo->id % 2)
+	// 	usleep(1000);
+	//idx = 0;
+	while (true)
 	{
-		philo_eat(philo, &eat_tv);
+		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 		//print_time_stamp(philo, "is testing");

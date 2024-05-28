@@ -22,9 +22,20 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+struct timeval	get_eat_time(t_philo *philo)
+{
+	struct timeval	eat_tv;
+
+	pthread_mutex_lock(&philo->status_mutex[EAT_TIME]);
+	eat_tv = philo->eat_tv;
+	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
+	return (eat_tv);
+}
+
 bool	check_philo_die(t_philo *philo)
 {
 	struct timeval	cur_tv;
+	struct timeval	eat_tv;
 	int				idx;
 	const int		t_die = philo[0].info->t_die;
 	t_info			*info;
@@ -34,27 +45,31 @@ bool	check_philo_die(t_philo *philo)
 	gettimeofday(&cur_tv, NULL);
 	while (idx < info->p_num)
 	{
-		if (diff_tv(&cur_tv, &philo[idx].eat_tv) > t_die)
+		eat_tv = get_eat_time(&philo[idx]);
+		//eat_tv = philo[idx].eat_tv;
+		//printf("%d!!!!%lld!!!!!\n", idx, diff_tv(&cur_tv, &eat_tv));
+		if (diff_tv(&cur_tv, &eat_tv) / 1000 > t_die)//mutex
 		{
 			print_time_stamp(&philo[idx], DIE_MSG);
 			return (true);
 		}
+		idx++;
 	}
 	return (false);
 }
 
-bool	check_philo_done(t_philo *philo)
-{
-	t_info			*info;
-	int	idx;
+// bool	check_philo_done(t_philo *philo)
+// {
+// 	t_info			*info;
+// 	int	idx;
 
-	info = philo[0].info;
-	idx = 0;
-	while (idx < info->p_num)
-	{
-		
-	}
-}
+// 	info = philo[0].info;
+// 	idx = 0;
+// 	while (idx < info->p_num)
+// 	{
+// 		if ()
+// 	}
+// }
 
 int	main(int argc, char *argv[])
 {
@@ -74,8 +89,9 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	init_threads(&info, &philo, &thread);
-	while (check_philo_die(philo) && check_philo_done(philo))
+	while (!check_philo_die(philo))// && check_philo_done(philo))
 		;
+	exit(1);
 	while (idx < info.p_num)
 	{
 		pthread_join(thread[idx++], NULL);

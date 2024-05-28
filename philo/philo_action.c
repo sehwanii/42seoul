@@ -16,23 +16,24 @@ static void    philo_get_fork(t_philo *philo, bool way)
 {
     while (true)
     {
-        pthread_mutex_lock(philo->mutex[way]);
+        pthread_mutex_lock(philo->fork_mutex[way]);
         if (*(philo->fork[way]) == NOT_OWNED)
             break;
-        pthread_mutex_unlock(philo->mutex[way]);
+        pthread_mutex_unlock(philo->fork_mutex[way]);
     }
     *(philo->fork[way]) = OWNED;
-    pthread_mutex_unlock(philo->mutex[way]);
+    print_time_stamp(philo, FORK_MSG);
+    pthread_mutex_unlock(philo->fork_mutex[way]);
 }
 
 static void    philo_put_fork(t_philo *philo, bool way)
 {
-    pthread_mutex_lock(philo->mutex[way]);
+    pthread_mutex_lock(philo->fork_mutex[way]);
     *(philo->fork[way]) = NOT_OWNED;
-    pthread_mutex_unlock(philo->mutex[way]);
+    pthread_mutex_unlock(philo->fork_mutex[way]);
 }
 
-void    philo_eat(t_philo *philo, struct timeval *eat_tv)
+void    philo_eat(t_philo *philo)
 {
     if (philo->id % 2)
     {
@@ -45,7 +46,9 @@ void    philo_eat(t_philo *philo, struct timeval *eat_tv)
         philo_get_fork(philo, LEFT);
     }
     print_time_stamp(philo, EAT_MSG);
-    gettimeofday(eat_tv, NULL);
+    pthread_mutex_lock(&philo->status_mutex[EAT_TIME]);
+    gettimeofday(&philo->eat_tv, NULL);
+    pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
     spend_time(philo->info->t_eat);
     if (philo->id % 2)
     {
