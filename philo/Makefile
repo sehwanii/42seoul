@@ -6,7 +6,7 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/05/26 17:05:31 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/05/29 20:43:56 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS_PHILO		=	$(SRCS_PHILO:.c=.o)
 OBJS_PHILO_B	=	$(SRCS_PHILO_B:.c=.o)
 OBJS_B			=	$(src_b:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 ifdef WITH_BONUS
 	OBJECTS = $(OBJS) $(OBJS_B)

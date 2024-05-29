@@ -45,6 +45,7 @@ typedef struct s_info
 	int				t_sleep;
 	int				n_to_eat;
 	pthread_mutex_t	print_mutex;
+	bool			print_status;
 	struct timeval	start_tv;
 }	t_info;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-05-28 09:14:46 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-05-28 09:14:46 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/05/28 09:14:46 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/05/29 20:55:48 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long long	diff_tv(struct timeval *tv1, struct timeval	*tv2)
 {
 	long long	sec_diff;
 	long long	usec_diff;
-	
+
 	sec_diff = tv1->tv_sec - tv2->tv_sec;
 	usec_diff = tv1->tv_usec - tv2->tv_usec;
 	return (sec_diff * 1000000 + usec_diff);
@@ -30,9 +30,10 @@ void	spend_time(long long time)
 
 	gettimeofday(&start_tv, NULL);
 	gettimeofday(&cur_tv, NULL);
+	usleep(time * 660);
 	while (time * 1000 >= diff_tv(&cur_tv, &start_tv))
 	{
-		usleep(10);
+		usleep(1000);
 		gettimeofday(&cur_tv, NULL);
 	}
 }
@@ -43,9 +44,21 @@ void	print_time_stamp(t_philo *philo, const char *action)
 	struct timeval	cur_tv;
 
 	info = philo->info;
-	pthread_mutex_lock(&info->print_mutex);
+	while (true)
+	{
+		pthread_mutex_lock(&info->print_mutex);
+		if (info->print_status == false)
+		{
+			info->print_status = true;
+			pthread_mutex_unlock(&info->print_mutex);	
+			break ;
+		}
+		pthread_mutex_unlock(&info->print_mutex);
+	}
 	gettimeofday(&cur_tv, NULL);
 	printf("%ld %d %s\n", (cur_tv.tv_sec - info->start_tv.tv_sec) * 1000 + \
 		(cur_tv.tv_usec - info->start_tv.tv_usec) / 1000, philo->id, action);
-	pthread_mutex_unlock(&info->print_mutex);	
+	pthread_mutex_lock(&info->print_mutex);
+	info->print_status = false;
+	pthread_mutex_unlock(&info->print_mutex);
 }

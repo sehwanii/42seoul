@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:58:52 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/05/26 21:30:19 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:33:27 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	init_info(t_info *info, int argc, char *argv[])
 	info->t_die = my_atoi(argv[2]);
 	info->t_eat = my_atoi(argv[3]);
 	info->t_sleep = my_atoi(argv[4]);
+	info->print_status = false;
 	pthread_mutex_init(&info->print_mutex, NULL);
 	gettimeofday(&info->start_tv, NULL);
 	return ;
