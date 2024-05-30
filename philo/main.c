@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 08:26:56 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/05/26 21:30:25 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:09:45 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,17 @@ int	main(int argc, char *argv[])
 	philo = NULL;
 	thread = NULL;
 	idx = 0;
-	if (argc == 5 || argc == 6)
-		init_info(&info, argc, argv);
-	else
+	if (init_main(&info, &philo, argc, argv) == ERROR)
+		return (1);
+	if (init_threads(&info, &philo, &thread) == ERROR)
 	{
-		write(2, "Wrong Argument Number\n", 23);
+		free_resources(info, philo, thread);
 		return (1);
 	}
-	init_threads(&info, &philo, &thread);
-	while (!check_philo_die(philo))// && check_philo_done(philo))
-		;
-	exit(1);
 	while (idx < info.p_num)
-	{
 		pthread_join(thread[idx++], NULL);
-	}
+	free_resources(info, philo, thread);
+	return (0);
 }
 
 // void	check_philo(t_philo *philo)

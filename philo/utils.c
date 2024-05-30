@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 08:47:05 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/05/26 15:43:26 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:13:44 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,19 @@ int	my_atoi(const char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-')
-		sign = -1;
-	if (str[i] == '-' || str[i] == '+')
+		return (ERROR);
+	if (str[i] == '+')
 		i++;
 	if (!ft_isdigit(str[i]))
-		exit_msg("Invalid Argument\n");
+		return (ERROR);
 	while (ft_isdigit(str[i]))
 	{
 		ret = ret * 10 + (str[i++] - '0');
-		if ((ret * sign) > 2147483647 || (ret * sign) < -2147483648)
-			exit_msg("Error : Arguments Overflow\n");
+		if ((ret * sign) > 2147483647)
+			return (ERROR);
 	}
 	if (str[i] != '\0')
-		exit_msg("Invalid Argument\n");
-	ret = ret * sign;
+		return (ERROR);
 	return ((int)ret);
 }
 

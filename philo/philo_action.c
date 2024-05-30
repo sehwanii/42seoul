@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:16:20 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/05/29 17:37:55 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:19:22 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	philo_get_fork(t_philo *philo, bool way)
 		if (*(philo->fork[way]) == NOT_OWNED)
 			break ;
 		pthread_mutex_unlock(philo->fork_mutex[way]);
+		usleep(1000);
 	}
 	*(philo->fork[way]) = OWNED;
 	print_time_stamp(philo, FORK_MSG);
@@ -33,42 +34,37 @@ static void	philo_put_fork(t_philo *philo, bool way)
 	pthread_mutex_unlock(philo->fork_mutex[way]);
 }
 
-void	philo_eat(t_philo *philo)
+int	philo_eat(t_philo *philo)
 {
-	if (philo->id % 2)
-	{
-		philo_get_fork(philo, LEFT);
-		philo_get_fork(philo, RIGHT);
-	}
-	else
-	{
-		philo_get_fork(philo, RIGHT);
-		philo_get_fork(philo, LEFT);
-	}
+	philo_get_fork(philo, LEFT);
+	philo_get_fork(philo, RIGHT);
 	print_time_stamp(philo, EAT_MSG);
-	pthread_mutex_lock(&philo->status_mutex[EAT_TIME]);
 	gettimeofday(&philo->eat_tv, NULL);
-	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
-	spend_time(philo->info->t_eat);
-	if (philo->id % 2)
+	if (spend_time(philo, philo->info->t_eat) == 1)
+		return (1);
+	philo_put_fork(philo, RIGHT);
+	philo_put_fork(philo, LEFT);
+	if (philo->n_eat == philo->info->n_to_eat)
 	{
-		philo_put_fork(philo, LEFT);
-		philo_put_fork(philo, RIGHT);
+		pthread_mutex_lock(&philo->info->done_mutex);
+		philo->info->done_philo++;
+		if (philo->info->done_philo == philo->info->p_num)
+			send_done_msg(philo->info);
+		pthread_mutex_unlock(&philo->info->done_mutex);
 	}
-	else
-	{
-		philo_put_fork(philo, RIGHT);
-		philo_put_fork(philo, LEFT);
-	}
+	return (0);
 }
 
-void	philo_sleep(t_philo *philo)
+int	philo_sleep(t_philo *philo)
 {
 	print_time_stamp(philo, SLEEP_MSG);
-	spend_time(philo->info->t_sleep);
+	if (spend_time(philo, philo->info->t_sleep) == 1)
+		return (1);
+	return (0);
 }
 
 void    philo_think(t_philo *philo)
 {
     print_time_stamp(philo, THINK_MSG);
+	spend_time(200);
 }

@@ -24,9 +24,13 @@
 # define LEFT	0
 # define RIGHT	1
 
+# define ERROR	-10
+# define OK		0
+
 # define OWNED		true
 # define NOT_OWNED	false
 
+# define NORMAL		-1
 # define IS_DONE	0
 # define IS_DEAD	1
 # define EAT_TIME	2
@@ -46,7 +50,12 @@ typedef struct s_info
 	int				n_to_eat;
 	pthread_mutex_t	print_mutex;
 	bool			print_status;
+	pthread_mutex_t	status_mutex;
+	bool			is_dead;
+	pthread_mutex_t	done_mutex;
+	int				done_philo;	
 	struct timeval	start_tv;
+	t_philo			*philo;
 }	t_info;
 
 typedef struct s_philo
@@ -54,21 +63,14 @@ typedef struct s_philo
 	int				id;
 	int				n_eat;
 	bool			is_done;
+	bool			is_dead;
 	t_info			*info;
 	pthread_mutex_t	*fork_mutex[2];
 	bool			*fork[2];
-	pthread_mutex_t	status_mutex[3];
+	pthread_mutex_t	status_mutex[2];
 	bool			status[2];
 	struct timeval	eat_tv;
 }	t_philo;
-
-struct s_thread_info 
-{
-	pthread_t thread_id; /* pthread_create()가 반환한 ID */
-	int thread_num; /* 애플리케이션 정의 스레드 # */
-	char *argv_string; /* 명령줄 인수에서 */
-}	t_thread_info;
-
 
 //utils.c
 int		my_atoi(const char *str);
@@ -79,17 +81,17 @@ size_t	ft_strlen(const char *s);
 void	*do_philo(void *data);
 
 //init.c
-void	init_threads(t_info *info, t_philo **philo, pthread_t **thread);
-void	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork);
-void	init_info(t_info *info, int argc, char *argv[]);
-
+int	init_threads(t_info *info, t_philo **philo, pthread_t **thread);
+int	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork);
+int	init_info(t_info *info, t_philo **philo, int argc, char *argv[]);
+int	init_main(t_info *info, t_philo **philo, int argc, char *argv[]);
 //philo_time.c
-void		spend_time(long long time);
+void		msleep(long long time);
 void		print_time_stamp(t_philo *philo, const char *action);
 long long	diff_tv(struct timeval *tv1, struct timeval	*tv2);
 //philo_action.c
-void    philo_eat(t_philo *philo);
-void    philo_sleep(t_philo *philo);
+int    philo_eat(t_philo *philo);
+int    philo_sleep(t_philo *philo);
 void    philo_think(t_philo *philo);
 
 #endif
