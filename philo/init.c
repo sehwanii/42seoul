@@ -96,7 +96,7 @@ int	init_main(t_info *info, t_philo **philo, int argc, char *argv[])
 		write(2, "Wrong Argument Number\n", 23);
 		return (ERROR);
 	}
-	if (init_info(&info, philo, argc, argv) == ERROR)
+	if (init_info(info, philo, argc, argv) == ERROR)
 	{
 		write(2, "ERROR : Arguments should be positive integer\n", 46);
 		return (ERROR);

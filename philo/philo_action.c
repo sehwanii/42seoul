@@ -66,5 +66,5 @@ int	philo_sleep(t_philo *philo)
 void    philo_think(t_philo *philo)
 {
     print_time_stamp(philo, THINK_MSG);
-	spend_time(200);
+	msleep(200);
 }

@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-bool	get_status(t_philo *philo, int eat_num)
+bool	get_status(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->status_mutex[IS_DEAD]);
 	if (philo->status[IS_DEAD])
@@ -35,7 +35,6 @@ void	*do_philo(void *data)
 {
 	t_philo	*philo;
 	int		status;
-	int		eat_num;
 
 	philo = data;
 	pthread_mutex_lock(&philo->status_mutex[EAT_TIME]);
@@ -43,8 +42,8 @@ void	*do_philo(void *data)
 	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
 	if (philo->id % 2)
 		usleep(1000);
-	eat_num = 0;
-	status = get_status(philo, eat_num);
+	status = get_status(philo);
+	printf("%d\n",status);
 	while (status == NORMAL)
 	{
 		status = philo_eat(philo);
@@ -54,7 +53,7 @@ void	*do_philo(void *data)
 		if (status == IS_DEAD || status == IS_DONE)
 			break ;
 		philo_think(philo);
-		get_status(philo, ++eat_num);
+		get_status(philo);
 	}
 	return (NULL);
 }

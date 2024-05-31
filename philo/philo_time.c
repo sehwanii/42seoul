@@ -43,6 +43,7 @@ void	send_die_msg(t_info *info)
 	t_philo	*philos;
 	int		idx;
 
+	idx = 0;
 	philos = info->philo;
 	while (idx < info->p_num)
 	{
@@ -59,6 +60,7 @@ void	send_done_msg(t_info *info)
 	t_philo	*philos;
 	int		idx;
 
+	idx = 0;
 	philos = info->philo;
 	while (idx < info->p_num)
 	{

@@ -22,6 +22,8 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+void	free_resources(t_info *info, t_philo *philo);
+
 struct timeval	get_eat_time(t_philo *philo)
 {
 	struct timeval	eat_tv;
@@ -85,12 +87,12 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (init_threads(&info, &philo, &thread) == ERROR)
 	{
-		free_resources(info, philo, thread);
+		//free_resources(info, philo, thread);
 		return (1);
 	}
 	while (idx < info.p_num)
 		pthread_join(thread[idx++], NULL);
-	free_resources(info, philo, thread);
+	//free_resources(info, philo, thread);
 	return (0);
 }
 

@@ -55,7 +55,7 @@ typedef struct s_info
 	pthread_mutex_t	done_mutex;
 	int				done_philo;	
 	struct timeval	start_tv;
-	t_philo			*philo;
+	struct s_philo	*philo;
 }	t_info;
 
 typedef struct s_philo
@@ -89,6 +89,8 @@ int	init_main(t_info *info, t_philo **philo, int argc, char *argv[]);
 void		msleep(long long time);
 void		print_time_stamp(t_philo *philo, const char *action);
 long long	diff_tv(struct timeval *tv1, struct timeval	*tv2);
+int			spend_time(t_philo *philo, long long time);
+void		send_done_msg(t_info *info);
 //philo_action.c
 int    philo_eat(t_philo *philo);
 int    philo_sleep(t_philo *philo);
