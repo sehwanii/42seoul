@@ -62,8 +62,6 @@ typedef struct s_philo
 {
 	int				id;
 	int				n_eat;
-	bool			is_done;
-	bool			is_dead;
 	t_info			*info;
 	pthread_mutex_t	*fork_mutex[2];
 	bool			*fork[2];

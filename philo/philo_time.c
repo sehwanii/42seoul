@@ -48,7 +48,7 @@ void	send_die_msg(t_info *info)
 	while (idx < info->p_num)
 	{
 		pthread_mutex_lock(&philos[idx].status_mutex[IS_DEAD]);
-		philos[idx].is_dead = true;
+		philos[idx].status[IS_DEAD] = true;
 		pthread_mutex_unlock(&philos[idx].status_mutex[IS_DEAD]);
 		idx++;
 	}
@@ -65,7 +65,7 @@ void	send_done_msg(t_info *info)
 	while (idx < info->p_num)
 	{
 		pthread_mutex_lock(&philos[idx].status_mutex[IS_DONE]);
-		philos[idx].is_done = true;
+		philos[idx].status[IS_DONE] = true;
 		pthread_mutex_unlock(&philos[idx].status_mutex[IS_DONE]);
 		idx++;
 	}

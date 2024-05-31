@@ -24,7 +24,6 @@ int	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork)
 		fork[idx] = false;
 		philo[idx].id = idx + 1;
 		philo[idx].n_eat = 0;
-		philo[idx].is_done = false;
 		philo[idx].info = info;
 		philo[idx].fork[LEFT] = &fork[idx];
 		philo[idx].fork[RIGHT] = &fork[(idx + 1) % info->p_num];
