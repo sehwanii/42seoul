@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 16:58:52 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/05/30 21:09:42 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:32:26 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	init_philo(t_philo *philo, t_info *info, pthread_mutex_t *mutex, bool *fork)
 		philo[idx].fork[RIGHT] = &fork[(idx + 1) % info->p_num];
 		philo[idx].fork_mutex[LEFT] = &mutex[idx];
 		philo[idx].fork_mutex[RIGHT] = &(mutex[(idx + 1) % info->p_num]);
-		if (pthread_mutex_init(&(philo[idx].status_mutex[IS_DONE]), NULL) != OK)
+		if (pthread_mutex_init(&philo[idx].status_mutex[IS_DONE], NULL) != OK)
 			return (ERROR);
-		if (pthread_mutex_init(&(philo[idx].status_mutex[IS_DEAD]), NULL) != OK)
+		if (pthread_mutex_init(&philo[idx].status_mutex[IS_DEAD], NULL) != OK)
 			return (ERROR);
 		philo[idx].status[IS_DONE] = false;
 		philo[idx].status[IS_DEAD] = false;
@@ -75,11 +75,11 @@ int	init_info(t_info *info, t_philo **philo, int argc, char *argv[])
 	info->t_die = my_atoi(argv[2]);
 	info->t_eat = my_atoi(argv[3]);
 	info->t_sleep = my_atoi(argv[4]);
-	info->philo = *philo;
+	info->philo = philo;
 	if (info->p_num == ERROR || info->t_die == ERROR || info->t_eat == ERROR || \
 		info->t_sleep == ERROR || info->n_to_eat == ERROR)
 		return (ERROR);
-	info->print_status = false;
+	info->print_status = 0;
 	if (pthread_mutex_init(&info->print_mutex, NULL) != OK)
 		return (ERROR);
 	if (pthread_mutex_init(&info->status_mutex, NULL) != OK)

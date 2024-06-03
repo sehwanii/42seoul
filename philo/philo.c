@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 17:08:21 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/06/03 20:40:44 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:48:27 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*do_philo(void *data)
 	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
 	print_time_stamp(philo, THINK_MSG);
 	if (philo->id % 2)
-		usleep(10000);//aasfd
+		usleep(1000);//aasfd
 	status = get_status(philo);
 	while (status == NORMAL)
 	{

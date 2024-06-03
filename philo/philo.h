@@ -49,13 +49,13 @@ typedef struct s_info
 	int				t_sleep;
 	int				n_to_eat;
 	pthread_mutex_t	print_mutex;
-	bool			print_status;
+	int				print_status;
 	pthread_mutex_t	status_mutex;
 	bool			is_dead;
 	pthread_mutex_t	done_mutex;
 	int				done_philo;	
 	struct timeval	start_tv;
-	struct s_philo	*philo;
+	struct s_philo	**philo;
 }	t_info;
 
 typedef struct s_philo

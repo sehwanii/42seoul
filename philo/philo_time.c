@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:14:46 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/06/03 20:45:32 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:44:00 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	send_die_msg(t_info *info)
 	int		idx;
 
 	idx = 0;
-	philos = info->philo;
+	philos = *info->philo;
 	while (idx < info->p_num)
 	{
 		pthread_mutex_lock(&philos[idx].status_mutex[IS_DEAD]);
@@ -61,7 +61,7 @@ void	send_done_msg(t_info *info)
 	int		idx;
 
 	idx = 0;
-	philos = info->philo;
+	philos = *info->philo;
 	while (idx < info->p_num)
 	{
 		pthread_mutex_lock(&philos[idx].status_mutex[IS_DONE]);
@@ -102,9 +102,14 @@ void	print_time_stamp(t_philo *philo, const char *action)
 	while (true)
 	{
 		pthread_mutex_lock(&info->print_mutex);
-		if (info->print_status == false)
+		if (info->print_status == -1)
 		{
-			info->print_status = true;
+			pthread_mutex_unlock(&info->print_mutex);
+			return ;
+		}
+		if (info->print_status == 0)
+		{
+			info->print_status = 1;
 			pthread_mutex_unlock(&info->print_mutex);	
 			break ;
 		}
@@ -114,7 +119,10 @@ void	print_time_stamp(t_philo *philo, const char *action)
 	gettimeofday(&cur_tv, NULL);
 	printf("%ld %d %s\n", (cur_tv.tv_sec - info->start_tv.tv_sec) * 1000 + \
 		(cur_tv.tv_usec - info->start_tv.tv_usec) / 1000, philo->id, action);
-	pthread_mutex_lock(&info->print_mutex);
-	info->print_status = false;
+	pthread_mutex_lock(&info->print_mutex);//프린트 뮤텍스 걸고, 다른애들 와일문에 추가 필요.
+	if (*action == 'd')
+		info->print_status = -1;
+	else
+		info->print_status = 0;
 	pthread_mutex_unlock(&info->print_mutex);
 }
