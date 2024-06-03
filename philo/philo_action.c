@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 09:16:20 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/05/30 21:19:22 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:40:27 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	philo_eat(t_philo *philo)
 	philo_get_fork(philo, RIGHT);
 	print_time_stamp(philo, EAT_MSG);
 	gettimeofday(&philo->eat_tv, NULL);
-	if (spend_time(philo, philo->info->t_eat) == 1)
-		return (1);
+	if (spend_time(philo, philo->info->t_eat) == IS_DEAD)
+		return (IS_DEAD);
 	philo_put_fork(philo, RIGHT);
 	philo_put_fork(philo, LEFT);
 	if (philo->n_eat == philo->info->n_to_eat)
@@ -51,16 +51,17 @@ int	philo_eat(t_philo *philo)
 		if (philo->info->done_philo == philo->info->p_num)
 			send_done_msg(philo->info);
 		pthread_mutex_unlock(&philo->info->done_mutex);
+		return (IS_DONE);
 	}
-	return (0);
+	return (NORMAL);
 }
 
 int	philo_sleep(t_philo *philo)
 {
 	print_time_stamp(philo, SLEEP_MSG);
-	if (spend_time(philo, philo->info->t_sleep) == 1)
-		return (1);
-	return (0);
+	if (spend_time(philo, philo->info->t_sleep) == IS_DEAD)
+		return (IS_DEAD);
+	return (NORMAL);
 }
 
 void    philo_think(t_philo *philo)
