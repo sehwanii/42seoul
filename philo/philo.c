@@ -42,7 +42,7 @@ void	*do_philo(void *data)
 	pthread_mutex_unlock(&philo->status_mutex[EAT_TIME]);
 	print_time_stamp(philo, THINK_MSG);
 	if (philo->id % 2)
-		usleep(1000);//aasfd
+		msleep((long long)philo->info->t_eat);//aasfd
 	status = get_status(philo);
 	while (status == NORMAL)
 	{

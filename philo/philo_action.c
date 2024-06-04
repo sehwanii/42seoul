@@ -20,7 +20,7 @@ static void	philo_get_fork(t_philo *philo, bool way)
 		if (*(philo->fork[way]) == NOT_OWNED)
 			break ;
 		pthread_mutex_unlock(philo->fork_mutex[way]);
-		usleep(1000);
+		usleep(200);
 	}
 	*(philo->fork[way]) = OWNED;
 	print_time_stamp(philo, FORK_MSG);

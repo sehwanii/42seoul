@@ -26,7 +26,7 @@ OBJS_PHILO		=	$(SRCS_PHILO:.c=.o)
 OBJS_PHILO_B	=	$(SRCS_PHILO_B:.c=.o)
 OBJS_B			=	$(src_b:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 ifdef WITH_BONUS
 	OBJECTS = $(OBJS) $(OBJS_B)
