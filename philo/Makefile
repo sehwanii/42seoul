@@ -47,7 +47,7 @@ $(NAME): $(OBJS_PHILO)
 # 	$(CC)  $(OBJS_PS_B) -I$(SUB_LIBDIR) $(SUB_LIBDIR)/$(SUB_LIB) -o $(NAME)
 
 %.o : %.c philo.h
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS_PHILO) $(OBJS_B)
