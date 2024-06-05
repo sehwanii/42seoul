@@ -44,6 +44,7 @@ int	philo_eat(t_philo *philo)
 		return (IS_DEAD);
 	philo_put_fork(philo, RIGHT);
 	philo_put_fork(philo, LEFT);
+	philo->n_eat++;
 	if (philo->n_eat == philo->info->n_to_eat)
 	{
 		pthread_mutex_lock(&philo->info->done_mutex);
