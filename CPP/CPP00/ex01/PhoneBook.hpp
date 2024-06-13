@@ -27,6 +27,10 @@ public:
 	void	AddContact();
 	void	SearchContact();
 	void	AddContact(Contact newContact);
+	int		GetLastIdx();
+	void	PrintContact(int idx);
 };
+
+std::string GetInput(std::string str);
 
 #endif

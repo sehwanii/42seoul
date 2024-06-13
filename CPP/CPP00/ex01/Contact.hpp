@@ -30,6 +30,11 @@ public:
     Contact(/* args */);
     ~Contact();
     void    SetContact(std::string first_name, std::string last_name, std::string nickname, std::string phone_number, std::string darkest_secret);
+    std::string GetFirstName();
+    std::string GetLastName();
+    std::string GetNickame();
+    std::string GetPhoneNumber();
+    std::string GetDarkestSecret();
 };
 
 #endif
