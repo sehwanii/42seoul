@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-04 04:43:48 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-04 04:43:48 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/04 04:43:48 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/07/29 20:47:25 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+#include <iomanip>
 
 PhoneBook::PhoneBook()
 {
@@ -35,7 +36,7 @@ void    PhoneBook::AddContact()
     first_name = GetInput("First Name?\n");
     last_name = GetInput("Last Name?\n");
     nickname = GetInput("Nickame?\n");
-    phone_number = GetInput( "Phone Number? (010-xxxx-xxxx)\n");
+    phone_number = GetPhoneNumberInput( "Phone Number? (010-xxxx-xxxx)\n");
     darkest_secret = GetInput("Darkest Secret?\n");
     newContact.SetContact(first_name, last_name, nickname, phone_number, darkest_secret);
     AddContact(newContact);
@@ -48,35 +49,29 @@ void    PhoneBook::SearchContact()
     int userIdx;
 
     for (int i = 0 ; i < 8 ; i++){
-        PrintContact(i);
+		if (mcontact[i].musing == true)
+	        PrintContact(i);
     }
-    std::cout << "Which \n";
+    std::cout << "Which?\n";
     std::cin >> userIdx;
+	//ㅁㄴㅇㄹㅁㄴㅇㄹ
 
 }
 
 void	PhoneBook::PrintContact(int idx)
 {
-    std::string first_name;
-    std::string last_name;
-    std::string nickname;
-    std::string phone_number;
-    std::string darkest_secret;
-
-    std::cout<<"|";
-    first_name = mcontact[idx].GetFirstName();
-    std::cout.width(9);
-    std::cout<<first_name;
-    // if (first_name.length() <= 9){
-    //     for (int i )
-    // }
-    std::cout<<"|";
-
-    std::cout<<"|";
-
-    std::cout<<"|";
-
-    std::cout<<"|";
+    const std::string first_name = mcontact[idx].GetFirstName();
+    const std::string last_name = mcontact[idx].GetLastName();
+    const std::string nickname = mcontact[idx].GetNickame();
+    //const std::string phone_number = mcontact[idx].GetPhoneNumber();
+    //const std::string darkest_secret = mcontact[idx].GetDarkestSecret();
+	std::cout<<"|"<<std::setw(10)<<idx;
+	PrintFormat(first_name);
+	PrintFormat(last_name);
+	PrintFormat(nickname);
+	//PrintFormat(phone_number);
+	//PrintFormat(darkest_secret);
+    std::cout<<"|"<<std::endl;
 }
 
 void	PhoneBook::AddContact(Contact newContact)
@@ -100,4 +95,44 @@ std::string GetInput(std::string str)
     while (ret_str == "")
         std::cin >> ret_str;
     return (ret_str);
+}
+
+std::string GetPhoneNumberInput(std::string str)
+{
+	std::string ret_str = "";
+
+    std::cout << str;
+	std::cin >> ret_str;
+    while (!CheckPhoneNumberFormat(ret_str)){
+		std::cout << "Wrong Format! (010-xxxx-xxxx)" << std::endl;
+        std::cin >> ret_str;
+	}
+    return (ret_str);
+}
+
+bool	CheckPhoneNumberFormat(std::string phonenumber)
+{
+	if (phonenumber.length() != 13 || phonenumber.substr(0, 3) != "010") {
+        return false;
+    }
+    if (phonenumber[3] != '-' || phonenumber[8] != '-') {
+        return false;
+    }
+    for (int i = 0; i < 13; i++) {
+        if (i == 3 || i == 8) {
+            continue;
+        }
+        if (phonenumber[i] < '0' || phonenumber[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+void	PrintFormat(std::string str)
+{
+	if (str.length() > 10)
+		std::cout<<"|"<<str.substr(0,9)<<'.';
+	else
+		std::cout<<"|"<<std::setw(10)<<str;
 }

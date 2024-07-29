@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-04 04:37:11 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-04 04:37:11 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/04 04:37:11 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/07/29 20:32:45 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 class PhoneBook
 {
 private:
-	/* data */
 	Contact	mcontact[8];
 	int		mlastIdx;
 public:
-	PhoneBook(/* args */);
+	PhoneBook();
 	~PhoneBook();
 	void	AddContact();
 	void	SearchContact();
@@ -32,5 +31,7 @@ public:
 };
 
 std::string GetInput(std::string str);
-
+std::string GetPhoneNumberInput(std::string str);
+bool	CheckPhoneNumberFormat(std::string phonenumber);
+void	PrintFormat(std::string str);
 #endif

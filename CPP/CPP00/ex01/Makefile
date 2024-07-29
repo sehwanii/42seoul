@@ -6,11 +6,11 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/05/29 20:43:56 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/06/30 21:39:25 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC 		= c++
+CC 		= 	c++
 NAME	=	phonebook
 SRCS	= 	PhoneBook.cpp \
 			Contact.cpp \
@@ -19,7 +19,7 @@ SRCS	= 	PhoneBook.cpp \
 HEADERS	=	PhoneBook.hpp \
 			Contact.hpp \
 
-OBJS	=	$(SRCS:.c=.o)
+OBJS	=	$(SRCS:.cpp=.o)
 
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
 
