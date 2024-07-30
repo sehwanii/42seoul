@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 07:20:28 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/29 20:42:00 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:14:19 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,12 @@ std::string	Contact::GetPhoneNumber(){
 
 std::string	Contact::GetDarkestSecret(){
 	return (mdarkest_secret);
+}
+
+bool	Contact::GetUsing(){
+	return (musing);
+}
+
+void	Contact::SetUsing(bool status){
+	this->musing = status;
 }

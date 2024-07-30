@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:43:48 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/29 20:47:25 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:12:57 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 PhoneBook::PhoneBook()
 {
-
+	for(int i = 0; i < 8; i++)	
+		this->mcontact[i].musing = false;
 }
 
 PhoneBook::~PhoneBook()
@@ -23,7 +24,7 @@ PhoneBook::~PhoneBook()
 
 }
 
-void    PhoneBook::AddContact()
+void    PhoneBook::Add()
 {
     Contact newContact;
     std::string first_name;
@@ -40,6 +41,7 @@ void    PhoneBook::AddContact()
     darkest_secret = GetInput("Darkest Secret?\n");
     newContact.SetContact(first_name, last_name, nickname, phone_number, darkest_secret);
     AddContact(newContact);
+	this->mlastIdx = (mlastIdx + 1) / 8;
 }
 
 
@@ -47,13 +49,20 @@ void    PhoneBook::AddContact()
 void    PhoneBook::SearchContact()
 {
     int userIdx;
+	std::string userInput;
 
     for (int i = 0 ; i < 8 ; i++){
-		if (mcontact[i].musing == true)
+		std::cout << mcontact[i].GetUsing();
+		if (mcontact[i].GetUsing() == true)
 	        PrintContact(i);
     }
-    std::cout << "Which?\n";
-    std::cin >> userIdx;
+    std::cout << "Enter index?" << std::endl;
+    std::cin >> userInput;
+	while (userInput.length() != 1 || userInput[0] < '0' || userInput[0] > '9'){
+		std::cout << "Wrong Index (1 ~ 8)" << std::endl;
+		std::cin >> userInput;
+	}
+
 	//ㅁㄴㅇㄹㅁㄴㅇㄹ
 
 }

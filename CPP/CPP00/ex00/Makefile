@@ -6,15 +6,15 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/05/29 20:43:56 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/06/30 21:39:14 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		= c++
-NAME	=	ex00
+NAME	=	megaphone
 SRCS	= 	megaphone.cpp
 
-OBJS	=	$(SRCS:.c=.o)
+OBJS	=	$(SRCS:.cpp=.o)
 
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
 

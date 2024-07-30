@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:37:11 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/29 20:32:45 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:55:14 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ private:
 public:
 	PhoneBook();
 	~PhoneBook();
-	void	AddContact();
+	void	Add();
 	void	SearchContact();
 	void	AddContact(Contact newContact);
 	int		GetLastIdx();
