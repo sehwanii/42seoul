@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:43:48 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/30 23:12:20 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:15:50 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 PhoneBook::PhoneBook()
 {
 	for(int i = 0; i < 8; i++)	
-		this->mcontact[i].musing = false;
+		this->mcontact[i].SetUsing(false);
 }
 
 PhoneBook::~PhoneBook()
@@ -41,7 +41,7 @@ void    PhoneBook::Add()
     darkest_secret = GetInput("Darkest Secret?\n");
     newContact.SetContact(first_name, last_name, nickname, phone_number, darkest_secret);
     AddContact(newContact);
-	this->mlastIdx = (mlastIdx + 1) / 8;
+	this->mlastIdx = (this->mlastIdx + 1) % 8;
 }
 
 
@@ -52,7 +52,7 @@ void    PhoneBook::SearchContact()
 	std::string userInput;
 
     for (int i = 0 ; i < 8 ; i++){
-		std::cout << mcontact[i].GetUsing();
+		//std::cout << mcontact[i].GetUsing();
 		if (mcontact[i].GetUsing() == true)
 	        PrintContact(i);
     }
@@ -101,8 +101,13 @@ std::string GetInput(std::string str)
     std::string ret_str = "";
 
     std::cout << str;
-    while (ret_str == "")
-        std::cin >> ret_str;
+	std::getline(std::cin, ret_str);
+		if (std::cin.eof()) { // EOF 입력인지 확인
+			std::cout << "EOF received, exiting program." << std::endl;
+			exit(1); // 루프 종료
+		}
+    // while (ret_str == "")
+    //     std::cin >> ret_str;
     return (ret_str);
 }
 

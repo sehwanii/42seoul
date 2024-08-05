@@ -6,14 +6,14 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 07:20:28 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/30 23:12:19 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:49:16 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
 Contact::Contact(){
-	this->
+	//this->
 }
 
 Contact::~Contact(){
@@ -27,7 +27,7 @@ void    Contact::SetContact(std::string first_name, std::string last_name, std::
     this->mlast_name = last_name;
     this->mnickname = nickname;
     this->mphone_number = phone_number;
-    this->mdarkest_sexcret = darkest_secret;
+    this->mdarkest_secret = darkest_secret;
 }
 
 std::string	Contact::GetFirstName(){

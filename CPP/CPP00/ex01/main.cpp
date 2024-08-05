@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 06:34:51 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/07/29 21:12:06 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:12:57 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int main()
     std::string input;
     PhoneBook   phonebook;
 
-	phonebook.SetPhoneBook();
     while (true){
 		std::cout << "Please enter the command" << std::endl;
-        std::cin >> input;
+		std::cin.clear();
+        std::getline(std::cin, input);
+		if (std::cin.eof()) { // EOF 입력인지 확인
+			std::cout << "EOF received, exiting program." << std::endl;
+			break; // 루프 종료
+		}
         if (input == "ADD")
             phonebook.Add();
         else if (input == "SEARCH")
