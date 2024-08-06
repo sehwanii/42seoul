@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-24 04:13:14 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-24 04:13:14 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/24 04:13:14 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/06 19:03:15 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Zombie:: Zombie(std::string name)
 
 void Zombie::announce(void)
 {
-    std::cout<<name<<": BraiiiiiiinnnzzzZ...\n";
+    std::cout<<name<<": BraiiiiiiinnnzzzZ..."<<std::endl;
     return ;
 }
 
