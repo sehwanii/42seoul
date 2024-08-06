@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:43:48 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/05 18:15:50 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:09:34 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,36 @@ void    PhoneBook::Add()
 
 
 
-void    PhoneBook::SearchContact()
+void PhoneBook::SearchContact()
 {
     int userIdx;
-	std::string userInput;
+	int	flag = 0;
+    std::string userInput;
 
-    for (int i = 0 ; i < 8 ; i++){
-		//std::cout << mcontact[i].GetUsing();
-		if (mcontact[i].GetUsing() == true)
-	        PrintContact(i);
+    for (int i = 0; i < 8; i++)
+    {
+        if (mcontact[i].GetUsing() == true){
+            PrintContact(i);
+			flag++;
+		}
     }
-    std::cout << "Enter index?" << std::endl;
-    std::cin >> userInput;
-	while (userInput.length() != 1 || userInput[0] < '0' || userInput[0] > '9'){
-		std::cout << "Wrong Index (1 ~ 8)" << std::endl;
-		std::cin >> userInput;
+	if (flag == 0){
+		std::cout << "nothing to search" << std::endl;
+		return ;
 	}
 
-	//ㅁㄴㅇㄹㅁㄴㅇㄹ
+    std::cout << "Enter index?" << std::endl;
+    std::getline(std::cin, userInput);
+    while (userInput.length() != 1 || userInput[0] < '0' || userInput[0] > flag - 1 + '0' || !isdigit(userInput[0]))
+    {
+        std::cout << "Wrong Index (0 ~ " << flag - 1 <<")" << std::endl;
+        std::getline(std::cin, userInput);
+    }
+	std::cout<<"First Name     : "<<mcontact[userInput[0] - '0'].GetFirstName()<<std::endl;
+	std::cout<<"Last Name      : "<<mcontact[userInput[0] - '0'].GetLastName()<<std::endl;
+	std::cout<<"Nickname       : "<<mcontact[userInput[0] - '0'].GetNickname()<<std::endl;
+	std::cout<<"Phone Number   : "<<mcontact[userInput[0] - '0'].GetPhoneNumber()<<std::endl;
+	std::cout<<"Darkest Secret : "<<mcontact[userInput[0] - '0'].GetDarkestSecret()<<std::endl;
 
 }
 
@@ -71,7 +83,7 @@ void	PhoneBook::PrintContact(int idx)
 {
     const std::string first_name = mcontact[idx].GetFirstName();
     const std::string last_name = mcontact[idx].GetLastName();
-    const std::string nickname = mcontact[idx].GetNickame();
+    const std::string nickname = mcontact[idx].GetNickname();
     //const std::string phone_number = mcontact[idx].GetPhoneNumber();
     //const std::string darkest_secret = mcontact[idx].GetDarkestSecret();
 	std::cout<<"|"<<std::setw(10)<<idx;
@@ -85,7 +97,7 @@ void	PhoneBook::PrintContact(int idx)
 
 void	PhoneBook::AddContact(Contact newContact)
 {
-    const int next_idx = (GetLastIdx() + 1) % 8;
+    const int next_idx = (GetLastIdx()) % 8;
 
     mcontact[next_idx] = newContact;
     return ;
@@ -96,31 +108,60 @@ int     PhoneBook::GetLastIdx()
     return (mlastIdx);
 }
 
+bool contains_nonprintable(const std::string& s)
+{
+    for (std::string::const_iterator it = s.begin(); it != s.end(); ++it)
+    {
+        if (!isprint(*it))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 std::string GetInput(std::string str)
 {
-    std::string ret_str = "";
+    std::string ret_str;
 
     std::cout << str;
 	std::getline(std::cin, ret_str);
-		if (std::cin.eof()) { // EOF 입력인지 확인
-			std::cout << "EOF received, exiting program." << std::endl;
-			exit(1); // 루프 종료
-		}
-    // while (ret_str == "")
-    //     std::cin >> ret_str;
+	if (std::cin.eof()) { // EOF 입력인지 확인
+		std::cout << "EOF received, exiting program." << std::endl;
+		exit(1); // 루프 종료
+	}
+    while (ret_str.empty() || contains_nonprintable(ret_str))
+    {
+        if (ret_str.empty())
+        {
+            std::cout << "Input cannot be empty. Please enter again: ";
+        }
+        else
+        {
+            std::cout << "Non-printable characters detected. Please enter again: ";
+        }
+
+        std::getline(std::cin, ret_str);
+        if (std::cin.eof())
+        {
+            std::cout << "EOF received, exiting program." << std::endl;
+            exit(1);
+        }
+    }
     return (ret_str);
 }
 
 std::string GetPhoneNumberInput(std::string str)
 {
-	std::string ret_str = "";
+    std::string ret_str = "";
 
     std::cout << str;
-	std::cin >> ret_str;
-    while (!CheckPhoneNumberFormat(ret_str)){
-		std::cout << "Wrong Format! (010-xxxx-xxxx)" << std::endl;
-        std::cin >> ret_str;
-	}
+    std::getline(std::cin, ret_str);
+    while (!CheckPhoneNumberFormat(ret_str))
+    {
+        std::cout << "Wrong Format! (010-xxxx-xxxx)" << std::endl;
+        std::getline(std::cin, ret_str);
+    }
     return (ret_str);
 }
 

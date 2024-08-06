@@ -6,14 +6,14 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 07:20:28 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/05 17:49:16 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:02:38 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
 Contact::Contact(){
-	//this->
+
 }
 
 Contact::~Contact(){
@@ -38,7 +38,7 @@ std::string	Contact::GetLastName(){
 	return (mlast_name);
 }
 
-std::string	Contact::GetNickame(){
+std::string	Contact::GetNickname(){
 	return (mnickname);
 }
 

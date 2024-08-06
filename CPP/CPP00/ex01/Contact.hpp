@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:37:07 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/05 18:08:15 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:58:21 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ public:
     void	SetUsing(bool status);
 	std::string GetFirstName();
     std::string GetLastName();
-    std::string GetNickame();
+    std::string GetNickname();
     std::string GetPhoneNumber();
     std::string GetDarkestSecret();
 	bool		GetUsing();
