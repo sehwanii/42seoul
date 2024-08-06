@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 04:43:48 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/06 16:09:34 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:40:54 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void PhoneBook::SearchContact()
     int userIdx;
 	int	flag = 0;
     std::string userInput;
-
+	std::cout<<"|     Index|First Name| Last Name|  Nickname|"<<std::endl;
     for (int i = 0; i < 8; i++)
     {
         if (mcontact[i].GetUsing() == true){
@@ -84,14 +84,10 @@ void	PhoneBook::PrintContact(int idx)
     const std::string first_name = mcontact[idx].GetFirstName();
     const std::string last_name = mcontact[idx].GetLastName();
     const std::string nickname = mcontact[idx].GetNickname();
-    //const std::string phone_number = mcontact[idx].GetPhoneNumber();
-    //const std::string darkest_secret = mcontact[idx].GetDarkestSecret();
 	std::cout<<"|"<<std::setw(10)<<idx;
 	PrintFormat(first_name);
 	PrintFormat(last_name);
 	PrintFormat(nickname);
-	//PrintFormat(phone_number);
-	//PrintFormat(darkest_secret);
     std::cout<<"|"<<std::endl;
 }
 
@@ -112,7 +108,7 @@ bool contains_nonprintable(const std::string& s)
 {
     for (std::string::const_iterator it = s.begin(); it != s.end(); ++it)
     {
-        if (!isprint(*it))
+        if (!std::isprint(*it))
         {
             return true;
         }
@@ -126,9 +122,9 @@ std::string GetInput(std::string str)
 
     std::cout << str;
 	std::getline(std::cin, ret_str);
-	if (std::cin.eof()) { // EOF 입력인지 확인
+	if (std::cin.eof()) {
 		std::cout << "EOF received, exiting program." << std::endl;
-		exit(1); // 루프 종료
+		exit(1);
 	}
     while (ret_str.empty() || contains_nonprintable(ret_str))
     {
