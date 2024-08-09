@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 04:13:14 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/09 16:56:18 by sehwjang         ###   ########.fr       */
+/*   Created: 2024-08-08 09:21:58 by sehwanii          #+#    #+#             */
+/*   Updated: 2024-08-08 09:21:58 by sehwanii         ###   ########kr        */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
-Zombie:: Zombie()
+#include <string>
+
+class ClapTrap
 {
+private:
+    std::string name;
+public:
+    ClapTrap(/* args */);
+    ~ClapTrap();
+};
 
+ClapTrap::ClapTrap(/* args */)
+{
 }
 
-Zombie:: ~Zombie()
+ClapTrap::~ClapTrap()
 {
-
 }
 
-Zombie:: Zombie(std::string name)
-{
-    Zombie::name = name;
-    return ;
-}
 
-void Zombie::announce(void)
-{
-    std::cout<<name<<": BraiiiiiiinnnzzzZ..."<<std::endl;
-    return ;
-}
-
+#endif
