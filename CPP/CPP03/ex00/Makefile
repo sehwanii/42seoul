@@ -11,15 +11,11 @@
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex03
+NAME	=	ex05
 SRCS	= 	main.cpp \
-			Weapon.cpp \
-			HumanA.cpp \
-			HumanB.cpp \
+			Harl.cpp \
 
-HEADERS	=	Weapon.hpp \
-			HumanA.hpp \
-			HumanB.hpp \
+HEADERS	=	Harl.hpp \
 
 OBJS	=	$(SRCS:.cpp=.o)
 
@@ -30,7 +26,7 @@ CFLAGS	= -Wall -Wextra -Werror -std=c++98
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o : %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -19,7 +19,7 @@ Zombie:: Zombie()
 
 Zombie:: ~Zombie()
 {
-
+    std::cout<<name<<": bye........"<<std::endl;
 }
 
 Zombie:: Zombie(std::string name)
