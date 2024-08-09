@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 21:45:29 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/26 07:42:10 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:27:32 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	draw(t_point ***map, t_map *map_info, void *mlx, void *mlx_win)
 	int		i;
 	int		j;
 
-	img.img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (img.img == NULL)
+		exit_msg("MLX Error\n");
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
 	&img.line_length, &img.endian);
 	i = -1;
@@ -72,7 +74,6 @@ void	draw_line(t_data *data, t_point p1, t_point p2)
 {
 	const float	gradient = get_grad(p1, p2);
 
-	printf("%d %d\n", p1.color.rgb, p2.color.rgb);
 	if (gradient == 0)
 	{
 		while (p1.x++ <= p2.x)

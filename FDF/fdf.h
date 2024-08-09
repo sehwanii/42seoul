@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:21:43 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/23 18:48:06 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:28:41 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-#include <stdio.h>
-# include "Libft/libft.h"
+# include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 # include "minilibx/mlx.h"
 
 # define ERROR			-1
 # define MALLOC_ERROR	-1
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WIDTH	1920
+# define HEIGHT	1080
 # define BEZEL			100
 
 # define MIN_INT		-2147483648
 # define MAX_INT		2147483647
+
+# define KEY_ESC		53
+# define DESTROY_NOTIFY	17
 
 typedef struct s_color{
 	int	rgb;
@@ -63,15 +65,7 @@ typedef struct s_data{
 	int		endian;
 }	t_data;
 
-typedef struct s_view{
-	int		x;
-	int		y;
-	int		z;
-	double	rad;
-	double	scale;
-}	t_view;
-
-int	my_stoi(char *str);
+int		my_stoi(char *str);
 
 t_map	*read_map(t_point ***map, char *file_name);
 void	get_input(int fd, t_list **head, t_map *map_info);
@@ -87,11 +81,15 @@ void	init_points(t_point ***map, t_map *map_info);
 
 void	exit_msg(const char *msg);
 int		fdf_atoi(const char *str);
-int	max(int a, int b);
-int min(int a, int b);
+int		max(int a, int b);
+int		min(int a, int b);
 
-//draw_utils.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		get_color(t_color color1, t_color color2, double idx);
 double	get_grad(t_point p1, t_point p2);
+
+void	free_split(char **arr);
+int		key_press(int keycode);
+int		close_window(void);
+void	check_file_name(char *file_name);
 #endif

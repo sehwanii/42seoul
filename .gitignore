@@ -3,3 +3,6 @@ a.out
 .dSYM
 .vscode
 .DS_Store
+*.o
+*.d
+*.out

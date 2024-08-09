@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:35:48 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/06 16:10:35 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:53:59 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ t_gnl_list	*gnl_lstnew(int fd)
 	node -> line[0] = '\0';
 	node -> next = NULL;
 	return (node);
+}
+
+void	gnl_lstadd_back(t_gnl_list **lst, t_gnl_list *new)
+{
+	t_gnl_list	*temp;
+
+	if (*lst == 0)
+	{
+		*lst = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp -> next)
+		temp = temp -> next;
+	temp -> next = new;
 }
 
 void	free_node(t_gnl_list **head, int fd)
@@ -59,17 +74,41 @@ void	free_node(t_gnl_list **head, int fd)
 	}
 }
 
-void	gnl_lstadd_back(t_gnl_list **lst, t_gnl_list *new)
+char	*gnl_strjoin(char *s1, char *s2)
 {
-	t_gnl_list	*temp;
+	const size_t	prefix_len = gnl_strlen(s1);
+	const size_t	suffix_len = gnl_strlen(s2);
+	const size_t	total_len = prefix_len + suffix_len;
+	char			*ret_str;
+	size_t			idx;
 
-	if (*lst == 0)
+	idx = -1;
+	ret_str = (char *)malloc(total_len + 1);
+	if (ret_str == NULL)
 	{
-		*lst = new;
-		return ;
+		free(s1);
+		free(s2);
+		return (NULL);
 	}
-	temp = *lst;
-	while (temp -> next)
-		temp = temp -> next;
-	temp -> next = new;
+	while (++idx < prefix_len)
+		ret_str[idx] = s1[idx];
+	idx = -1;
+	while (++idx < suffix_len)
+		ret_str[prefix_len + idx] = s2[idx];
+	ret_str[total_len] = '\0';
+	free(s1);
+	free(s2);
+	return (ret_str);
+}
+
+size_t	gnl_strlen(const char *s)
+{
+	size_t	cnt;
+
+	if (s == NULL)
+		return (0);
+	cnt = 0;
+	while ((s[cnt]))
+		cnt++;
+	return (cnt);
 }

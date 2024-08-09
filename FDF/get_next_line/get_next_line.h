@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:10:46 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/06 16:10:09 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:16:19 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "../Libft/libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -42,6 +41,8 @@ int			parse_buffer(char *s, char **ret, char *line, int *flag);
 int			split_word(char *s, char **ret, char *line);
 int			find_node(t_gnl_list **head, t_gnl_list **node, int fd);
 void		free_node(t_gnl_list **head, int fd);
+size_t		gnl_strlen(const char *s);
+char		*gnl_strjoin(char *s1, char *s2);
 t_gnl_list	*gnl_lstnew(int fd);
 void		gnl_lstadd_back(t_gnl_list **lst, t_gnl_list *new);
 

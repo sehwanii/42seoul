@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:57:27 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/14 18:10:37 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:26:36 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ int	fdf_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (!ft_isdigit(str[i]))
-		exit_msg("Invaild Map!\n");
-	while (ft_isdigit(str[i]))
-		ret = ret * 10 + (str[i++] - '0');
-	ret = ret * sign;
-	if (ret > 2147483647 || ret < -2147483648)
 		exit_msg("Invaild Map\n");
+	while (ft_isdigit(str[i]))
+	{
+		ret = ret * 10 + (str[i++] - '0');
+		if (ret > MAX_INT || ret < MIN_INT)
+			exit_msg("Invaild Map\n");
+	}
+	ret = ret * sign;
 	return ((int)ret);
 }
 

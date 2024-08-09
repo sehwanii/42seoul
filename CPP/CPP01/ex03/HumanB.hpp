@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-24 08:58:24 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-24 08:58:24 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/24 08:58:24 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/06 19:18:06 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 class HumanB {
 private:
-    Weapon* weapon; // 참조에서 포인터로 변경
+    Weapon* weapon;
     std::string name;
 
 public:
     HumanB(std::string name);
-    HumanB(std::string name, Weapon& weapon); // Weapon을 참조로 전달
+    HumanB(std::string name, Weapon& weapon);
     void setName(std::string name);
     void setWeapon(Weapon& weapon);
 

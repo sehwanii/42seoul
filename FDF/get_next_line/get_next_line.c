@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:07:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/23 16:36:35 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:15:33 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	split_word(char *s, char **ret, char *line)
 {
-	const size_t	s_len = ft_strlen(s);
+	const size_t	s_len = gnl_strlen(s);
 	size_t			idx;
 	char			*temp;
 
@@ -30,12 +30,12 @@ int	split_word(char *s, char **ret, char *line)
 			temp[idx] = '\0';
 			while (idx <= s_len)
 				*(line++) = s[idx++];
-			*ret = ft_strjoin(*ret, temp);
+			*ret = gnl_strjoin(*ret, temp);
 			return (PARSE_SUCCESS);
 		}
 	}
 	s[0] = '\0';
-	*ret = ft_strjoin(*ret, temp);
+	*ret = gnl_strjoin(*ret, temp);
 	return (1);
 }
 
@@ -85,7 +85,7 @@ char	*gnl(int fd, char **line, int *flag)
 		*flag = READ_ALL;
 	if (size == 0 || parse_buffer(buffer, &ret, *line, flag) == PARSE_SUCCESS)
 		return (ret);
-	ret = ft_strjoin(ret, gnl(fd, line, flag));
+	ret = gnl_strjoin(ret, gnl(fd, line, flag));
 	return (ret);
 }
 

@@ -3,23 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   my_stoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 17:04:53 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/02/23 15:00:19 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:23:06 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "my_utils.h"
 #include "fdf.h"
-
-#define MAX_INT	2147483647
-#define MIN_INT	-2147483648
 
 static int	str_h_to_i(char *s);
 static int	str_b_to_i(char *s);
 static int	str_d_to_i(char *s);
-
 
 int	my_stoi(char *str)
 {

@@ -6,7 +6,7 @@ src_b = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
 OBJS = $(src_m:.c=.o)
 OBJS_B = $(src_b:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 ifdef WITH_BONUS
 	OBJECTS = $(OBJS) $(OBJS_B)

@@ -3,25 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehwjang <sehwjang@student.42.fr>          +#+  +:+       +#+         #
+#    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/02/23 15:42:45 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/07/24 20:08:29 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME		= fdf
-NAME_B		= checker
-SRCS_FDF	= main.c read_map.c fdf_utils.c init_points.c draw.c draw_utils.c my_stoi.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
+SRCS_FDF	= main.c read_map.c read_map_utils.c fdf_utils.c init_points.c draw.c draw_utils.c my_stoi.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c utils.c
 OBJS_FDF	= $(SRCS_FDF:.c=.o)
 OBJS_FDF_B	= $(SRCS_FDF_B:.c=.o)
-SRCS_LIB	= $(SUB_LIBDIR)/ft_isalpha.c $(SUB_LIBDIR)/ft_memcmp.c $(SUB_LIBDIR)/ft_strdup.c $(SUB_LIBDIR)/ft_strnstr.c $(SUB_LIBDIR)/ft_atoi.c $(SUB_LIBDIR)/ft_isascii.c $(SUB_LIBDIR)/ft_memcpy.c $(SUB_LIBDIR)/ft_strlcat.c $(SUB_LIBDIR)/ft_strrchr.c $(SUB_LIBDIR)/ft_bzero.c $(SUB_LIBDIR)/ft_isdigit.c $(SUB_LIBDIR)/ft_memmove.c $(SUB_LIBDIR)/ft_strlcpy.c $(SUB_LIBDIR)/ft_tolower.c $(SUB_LIBDIR)/ft_calloc.c $(SUB_LIBDIR)/ft_isprint.c $(SUB_LIBDIR)/ft_memset.c $(SUB_LIBDIR)/ft_strlen.c $(SUB_LIBDIR)/ft_toupper.c $(SUB_LIBDIR)/ft_isalnum.c $(SUB_LIBDIR)/ft_memchr.c $(SUB_LIBDIR)/ft_strchr.c $(SUB_LIBDIR)/ft_strncmp.c $(SUB_LIBDIR)/ft_substr.c $(SUB_LIBDIR)/ft_strjoin.c $(SUB_LIBDIR)/ft_strtrim.c $(SUB_LIBDIR)/ft_split.c $(SUB_LIBDIR)/ft_itoa.c $(SUB_LIBDIR)/ft_strmapi.c $(SUB_LIBDIR)/ft_striteri.c $(SUB_LIBDIR)/ft_putchar_fd.c $(SUB_LIBDIR)/ft_putstr_fd.c $(SUB_LIBDIR)/ft_putendl_fd.c $(SUB_LIBDIR)/ft_putnbr_fd.c
-SUB_LIB		= libft.a
-SUB_LIBDIR	= ./Libft
+SRCS_LIB	= $(LIBFTDIR)/ft_isalpha.c $(LIBFTDIR)/ft_lstdelone.c $(LIBFTDIR)/ft_memcmp.c $(LIBFTDIR)/ft_strdup.c $(LIBFTDIR)/ft_strnstr.c $(LIBFTDIR)/ft_atoi.c $(LIBFTDIR)/ft_isascii.c $(LIBFTDIR)/ft_memcpy.c $(LIBFTDIR)/ft_strlcat.c $(LIBFTDIR)/ft_strrchr.c $(LIBFTDIR)/ft_bzero.c $(LIBFTDIR)/ft_isdigit.c $(LIBFTDIR)/ft_memmove.c $(LIBFTDIR)/ft_strlcpy.c $(LIBFTDIR)/ft_tolower.c $(LIBFTDIR)/ft_calloc.c $(LIBFTDIR)/ft_isprint.c $(LIBFTDIR)/ft_memset.c $(LIBFTDIR)/ft_strlen.c $(LIBFTDIR)/ft_toupper.c $(LIBFTDIR)/ft_isalnum.c $(LIBFTDIR)/ft_memchr.c $(LIBFTDIR)/ft_strchr.c $(LIBFTDIR)/ft_strncmp.c $(LIBFTDIR)/ft_substr.c $(LIBFTDIR)/ft_strjoin.c $(LIBFTDIR)/ft_strtrim.c $(LIBFTDIR)/ft_split.c $(LIBFTDIR)/ft_itoa.c $(LIBFTDIR)/ft_strmapi.c $(LIBFTDIR)/ft_striteri.c $(LIBFTDIR)/ft_putchar_fd.c $(LIBFTDIR)/ft_putstr_fd.c $(LIBFTDIR)/ft_putendl_fd.c $(LIBFTDIR)/ft_putnbr_fd.c
+LIBFT		= ./libft/libft.a
+LIBFTDIR	= ./libft
+MLXLIB		= ./minilibx/libmlx.dylib
+MLXLIBDIR	= ./minilibx
+
 OBJS_B = $(src_b:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g3
+# CFLAGS = -Wall -Wextra -Werror
 
 ifdef WITH_BONUS
 	OBJECTS = $(OBJS) $(OBJS_B)
@@ -31,28 +33,32 @@ endif
 
 .PHONY : all clean fclean re bonus
 
-all : $(NAME)
+all :
+	make -C $(MLXLIBDIR)
+	make $(NAME)
 
 bonus : $(NAME_B)
 
-$(NAME): $(OBJS_FDF) $(SUB_LIB)
-	$(CC) $(OBJS_FDF) -framework OpenGL -framework AppKit -I$(SUB_LIBDIR) $(SUB_LIBDIR)/$(SUB_LIB) -I ./minilibx ./minilibx/libmlx.dylib  -o $(NAME)
+$(NAME): $(OBJS_FDF) $(LIBFT)
+	$(CC) $(OBJS_FDF) -framework Metal -framework Metalkit -I$(LIBFTDIR) $(LIBFT) -I$(MLXLIBDIR) $(MLXLIB) -o $(NAME)
+	install_name_tool -change libmlx.dylib ./minilibx/libmlx.dylib fdf
+	
+# $(NAME_B) : $(OBJS_PS_B) $(LIBFT)
+# 	$(CC)  $(OBJS_PS_B) -I$(LIBFTDIR) $(LIBFTDIR)/$(LIBFT) -o $(NAME)
 
-# $(NAME_B) : $(OBJS_PS_B) $(SUB_LIB)
-# 	$(CC)  $(OBJS_PS_B) -I$(SUB_LIBDIR) $(SUB_LIBDIR)/$(SUB_LIB) -o $(NAME)
-
-$(SUB_LIB) : $(SRCS_LIB)
-	make -C $(SUB_LIBDIR) bonus
+$(LIBFT) : $(SRCS_LIB)
+	make -C $(LIBFTDIR) bonus
 
 %.o : %.c fdf.h
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
 	@rm -f $(OBJS_FDF) $(OBJS_B)
-	@make -C $(SUB_LIBDIR) clean
+	@make -C $(LIBFTDIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(SUB_LIBDIR) fclean
+	make -C $(LIBFTDIR) fclean
+	make -C $(MLXLIBDIR) clean
 
 re : fclean all
