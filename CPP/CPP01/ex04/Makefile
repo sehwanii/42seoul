@@ -6,16 +6,15 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/08/09 17:09:40 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/08/09 17:06:27 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex05
+NAME	=	ex04
 SRCS	= 	main.cpp \
-			Harl.cpp \
 
-HEADERS	=	Harl.hpp \
+HEADERS	=
 
 OBJS	=	$(SRCS:.cpp=.o)
 
