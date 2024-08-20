@@ -13,10 +13,14 @@
 #include <iostream>
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(){
-    std::cout << "ScavTrap default constructor called"<<std::endl;
-    ScavTrap("defalut");
+ScavTrap::ScavTrap() {
+    mName = "default";    
+    mHitPoint = 100;
+    mEnergyPoint = 50;
+    mAttackDamage = 20;
+    std::cout << "ScavTrap " << mName << " constructor called" << std::endl;
 }
+
 
 ScavTrap::ScavTrap(std::string name){
     this->mName = name;

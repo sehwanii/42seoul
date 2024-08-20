@@ -13,11 +13,10 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap()
-{
-    std::cout << "ScavTrap default constructor called"<<std::endl;
-    ClapTrap("default");
+ClapTrap::ClapTrap() : mName("default"), mHitPoint(10), mEnergyPoint(10), mAttackDamage(0) {
+    std::cout << "ClapTrap " << mName << " constructor called" << std::endl;
 }
+
 
 ClapTrap::ClapTrap(std::string name) : mName(name)
 {
@@ -80,5 +79,5 @@ void ClapTrap::beRepaired(unsigned int amount)
         return ;
     }
     this->mHitPoint += amount;
-    std::cout <<mName<<"has been repaired "<<amount <<" Hit Point"<<std::endl;
+    std::cout <<mName<<" has been repaired "<<amount <<" Hit Point"<<std::endl;
 }

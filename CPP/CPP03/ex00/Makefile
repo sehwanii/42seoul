@@ -11,11 +11,11 @@
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex05
+NAME	=	ex00
 SRCS	= 	main.cpp \
-			Harl.cpp \
+			ClapTrap.cpp \
 
-HEADERS	=	Harl.hpp \
+HEADERS	=	ClapTrap.hpp \
 
 OBJS	=	$(SRCS:.cpp=.o)
 

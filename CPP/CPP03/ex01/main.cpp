@@ -23,5 +23,8 @@ int	main(void)
 	b.attack("A");
 	a.takeDamage(10);
 	a.beRepaired(10);
+
+	a.guardGate();
+	b.guardGate();
 	return (0);
 }
