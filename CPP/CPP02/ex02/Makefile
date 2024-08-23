@@ -6,12 +6,12 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/08/22 17:43:56 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/08/23 11:51:51 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex00
+NAME	=	ex02
 SRCS	= 	$(wildcard *.cpp)
 
 HEADERS	=	$(wildcard *.hpp)

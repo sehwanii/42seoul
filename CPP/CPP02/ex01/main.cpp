@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-12 05:03:45 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-12 05:03:45 by sehwanii         ###   ########.kr       */
+/*   Created: 2024/08/12 05:03:45 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/23 11:29:20 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include "Fixed.hpp"
+
 int main(void)
 {
     Fixed a;

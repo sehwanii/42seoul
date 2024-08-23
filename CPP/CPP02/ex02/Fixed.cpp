@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/23 14:08:19 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/23 14:08:37 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,88 @@ float Fixed::toFloat(void) const
 int Fixed::toInt(void) const
 {
 	return fixedValue >> fractionalBits;
+}
+
+Fixed Fixed::operator+(const Fixed &other) const
+{
+	return Fixed(this->toFloat() + other.toFloat());
+}
+
+Fixed Fixed::operator-(const Fixed &other) const
+{
+	return Fixed(this->toFloat() - other.toFloat());
+}
+
+Fixed Fixed::operator*(const Fixed &other) const
+{
+	return Fixed(this->toFloat() * other.toFloat());
+}
+
+Fixed Fixed::operator/(const Fixed &other) const
+{
+	if (other.toFloat() == 0)
+	{
+		std::cerr << "Division by zero is undefined." << std::endl;
+		return Fixed();
+	}
+	return Fixed(this->toFloat() / other.toFloat());
+}
+
+bool Fixed::operator==(const Fixed &other) const
+{
+	return this->fixedValue == other.fixedValue;
+}
+bool Fixed::operator>=(const Fixed &other) const
+{
+	return this->fixedValue >= other.fixedValue;
+}
+bool Fixed::operator<=(const Fixed &other) const
+{
+	return this->fixedValue <= other.fixedValue;
+}
+bool Fixed::operator>(const Fixed &other) const
+{
+	return this->fixedValue > other.fixedValue;
+}
+bool Fixed::operator<(const Fixed &other) const
+{
+	return this->fixedValue < other.fixedValue;
+}
+bool Fixed::operator!=(const Fixed &other) const
+{
+	return this->fixedValue != other.fixedValue;
+}
+
+Fixed &Fixed::operator++(void) {
+    this->fixedValue++;
+    return *this;
+}
+Fixed Fixed::operator++(int) {
+    Fixed temp = *this;
+    ++(*this);
+    return temp;
+}
+Fixed &Fixed::operator--(void) {
+    this->fixedValue--;
+    return *this;
+}
+Fixed Fixed::operator--(int) {
+    Fixed temp = *this;
+    --(*this);
+    return temp;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b) { 
+	return (a.fixedValue < b.fixedValue) ? a : b; 
+}
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
+	return (a.fixedValue < b.fixedValue) ? a : b; 
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b) {
+	return (a.fixedValue > b.fixedValue) ? a : b; 
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
+	return (a.fixedValue > b.fixedValue) ? a : b; 
 }
