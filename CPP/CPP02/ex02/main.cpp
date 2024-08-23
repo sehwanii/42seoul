@@ -5,23 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-12 06:10:21 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-12 06:10:21 by sehwanii         ###   ########.kr       */
+/*   Created: 2024-08-12 05:04:33 by sehwanii          #+#    #+#             */
+/*   Updated: 2024-08-12 05:04:33 by sehwanii         ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-
-int	main(void)
+#include <iostream>
+int main(void)
 {
-	ClapTrap a("A");
-	ClapTrap b("B");
-
-	a.attack("B");
-	b.takeDamage(5);
-	b.beRepaired(3);
-	b.attack("A");
-	a.takeDamage(10);
-	a.beRepaired(10);
-	return (0);
+    Fixed a;
+    Fixed const b(Fixed(5.05f) * Fixed(2));
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
+    std::cout << Fixed::max(a, b) << std::endl;
+    return 0;
 }

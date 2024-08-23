@@ -13,10 +13,10 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap()
-{
-    ClapTrap("default");
+ClapTrap::ClapTrap() : mName("default"), mHitPoint(10), mEnergyPoint(10), mAttackDamage(0) {
+    std::cout << "ClapTrap " << mName << " constructor called" << std::endl;
 }
+
 
 ClapTrap::ClapTrap(std::string name) : mName(name)
 {
@@ -54,7 +54,7 @@ void ClapTrap::attack(const std::string &target)
         std::cout << "No Hit Point..." << std::endl;
         return ;
     }
-    std::cout	<< "ClapTrap " << this->mName << " attacks " << target << ", causing " << this->mAttackDamage << " points of damage!"<< std::endl;
+    std::cout <<mName <<" attacks "<<target<<" with "<<mAttackDamage<<std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
@@ -79,5 +79,5 @@ void ClapTrap::beRepaired(unsigned int amount)
         return ;
     }
     this->mHitPoint += amount;
-    std::cout <<mName<<"has been repaired "<<amount <<" Hit Point"<<std::endl;
+    std::cout <<mName<<" has been repaired "<<amount <<" Hit Point"<<std::endl;
 }

@@ -11,11 +11,13 @@
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex00
+NAME	=	ex01
 SRCS	= 	main.cpp \
 			ClapTrap.cpp \
+			ScavTrap.cpp \
 
 HEADERS	=	ClapTrap.hpp \
+			ScavTrap.hpp \
 
 OBJS	=	$(SRCS:.cpp=.o)
 
@@ -28,7 +30,7 @@ all : $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.c $(HEADERS)
+%.o : %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

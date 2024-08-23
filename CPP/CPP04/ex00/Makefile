@@ -12,10 +12,9 @@
 
 CC 		=	c++
 NAME	=	ex00
-SRCS	= 	main.cpp \
-			ClapTrap.cpp \
+SRCS	= 	*.cpp
 
-HEADERS	=	ClapTrap.hpp \
+HEADERS	=	*.hpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 

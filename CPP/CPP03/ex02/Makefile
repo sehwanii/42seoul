@@ -11,11 +11,10 @@
 # **************************************************************************** #
 
 CC 		=	c++
-NAME	=	ex00
-SRCS	= 	main.cpp \
-			ClapTrap.cpp \
+NAME	=	ex02
+SRCS	= 	$(wildcard *.cpp)
 
-HEADERS	=	ClapTrap.hpp \
+HEADERS	=	*.hpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
@@ -28,7 +27,7 @@ all : $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.c $(HEADERS)
+%.o : %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
