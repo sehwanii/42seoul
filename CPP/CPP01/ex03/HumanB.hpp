@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 08:58:24 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/06 19:18:06 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:30:01 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ private:
 public:
     HumanB(std::string name);
     HumanB(std::string name, Weapon& weapon);
+	~HumanB();
     void setName(std::string name);
     void setWeapon(Weapon& weapon);
 

@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 04:13:14 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/09 16:56:18 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:12:11 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Zombie:: Zombie()
 
 Zombie:: ~Zombie()
 {
-
+	std::cout<<name<<": Bye..."<<std::endl;
 }
 
 Zombie:: Zombie(std::string name)

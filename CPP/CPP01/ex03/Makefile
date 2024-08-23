@@ -6,17 +6,14 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/08/06 20:42:23 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/08/21 07:49:32 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		=	c++
 NAME	=	ex03
-SRCS	= 	main.cpp \
-			Weapon.cpp \
-			HumanA.cpp \
-			HumanB.cpp \
-
+SRCS	= 	$(wildcard *.cpp)
+			
 HEADERS	=	Weapon.hpp \
 			HumanA.hpp \
 			HumanB.hpp \
@@ -32,7 +29,7 @@ all : $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o : %.c $(HEADERS)
+%.o : %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

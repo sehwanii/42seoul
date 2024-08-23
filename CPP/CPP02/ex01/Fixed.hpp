@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/09 18:47:25 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:45:21 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ private:
 public:
 	// Default constructor
 	Fixed();
+
+	Fixed(const int n);
 
 	// Copy constructor
 	Fixed(const Fixed &other);

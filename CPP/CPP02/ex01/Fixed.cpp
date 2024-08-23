@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/09 19:16:13 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:45:38 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 // Default constructor
 Fixed::Fixed() : fixedValue(0) {
+	std::cout<<"Default constructor called"<<std::endl;
+}
+
+Fixed::Fixed(const int n) {
 	std::cout<<"Default constructor called"<<std::endl;
 }
 

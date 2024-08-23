@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-24 08:40:47 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-24 08:40:47 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/24 08:40:47 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/18 15:30:14 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ class Weapon{
     public:
         Weapon();
         Weapon(std::string);
-        const std::string   &getType();
+        ~Weapon();
+		const std::string   &getType();
         void                setType(std::string type);
 };
 
