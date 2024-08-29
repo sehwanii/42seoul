@@ -6,7 +6,7 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/08/23 11:42:10 by sehwjang         ###   ########.fr        #
+#    Updated: 2024/08/29 17:33:02 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,17 @@ HEADERS	=	$(wildcard *.hpp)
 
 OBJS	=	$(SRCS:.cpp=.o)
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 .PHONY : all clean fclean re bonus
 
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFAGS) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 %.o : %.cpp $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
