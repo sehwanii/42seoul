@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-24 08:44:22 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-24 08:44:22 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/24 08:44:22 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/29 10:32:18 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // }
 
 HumanA::HumanA(std::string name, Weapon& weapon) : name(name), weapon(weapon) {}
-
+HumanA::~HumanA() {}
 void HumanA::setName(std::string name){
     this->name = name;
 }

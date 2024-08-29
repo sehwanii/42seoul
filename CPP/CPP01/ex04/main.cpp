@@ -21,13 +21,18 @@ void replaceStringInFile(const std::string& filename, const std::string& s1, con
         std::cerr << "Error: Could not open/create the output file." << std::endl;
         return;
     }
-    size_t pos = 0;
-    while ((pos = fileContents.find(s1, pos)) != std::string::npos) {
-        fileContents.replace(pos, s1.length(), s2);
-        pos += s2.length();
-    }
 
-    outputFile << fileContents;
+    std::string result;
+    size_t start = 0;
+    size_t pos = 0;
+    while ((pos = fileContents.find(s1, start)) != std::string::npos) {
+        result.append(fileContents.substr(start, pos - start));
+        result.append(s2);
+        start = pos + s1.length();
+    }
+    result.append(fileContents.substr(start));
+
+    outputFile << result;
     outputFile.close();
 }
 

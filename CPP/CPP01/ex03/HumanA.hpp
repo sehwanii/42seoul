@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 08:44:32 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/08/18 15:29:52 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:31:25 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 class HumanA{
     private:
-        Weapon      &weapon;
         std::string name;
+        Weapon      &weapon;
     public:
         // HumanA();
         // HumanA(std::string name);

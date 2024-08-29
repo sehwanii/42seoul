@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-06-24 09:10:02 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-06-24 09:10:02 by sehwanii         ###   ########.fr       */
+/*   Created: 2024/06/24 09:10:02 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/29 10:32:28 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 HumanB::HumanB(std::string name) : name(name), weapon(nullptr) {
 
 }
-
+HumanB::~HumanB() {}
 HumanB::HumanB(std::string name, Weapon& weapon) : name(name), weapon(&weapon) {}
 
 void HumanB::setName(std::string name) {
