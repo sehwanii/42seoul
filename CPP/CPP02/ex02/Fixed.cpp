@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/23 14:08:37 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:31:14 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ bool Fixed::operator!=(const Fixed &other) const
 	return this->fixedValue != other.fixedValue;
 }
 
-Fixed &Fixed::operator++(void) {
+const Fixed &Fixed::operator++(void) {
     this->fixedValue++;
     return *this;
 }
@@ -129,7 +129,7 @@ Fixed Fixed::operator++(int) {
     ++(*this);
     return temp;
 }
-Fixed &Fixed::operator--(void) {
+const Fixed &Fixed::operator--(void) {
     this->fixedValue--;
     return *this;
 }
@@ -152,4 +152,10 @@ Fixed &Fixed::max(Fixed &a, Fixed &b) {
 
 const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
 	return (a.fixedValue > b.fixedValue) ? a : b; 
+}
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
+{
+	out << fixed.toFloat();
+    return out;
 }

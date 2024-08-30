@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/23 14:08:06 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:43:25 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ public:
 	float	toFloat(void) const;
 	int	toInt(void) const;
 	
-	friend std::ostream& operator<<(std::ostream& out, const Fixed& fixed) {
-		out << fixed.toFloat();
-    	return out;
-	}
+	
 };
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed);
 
 #endif

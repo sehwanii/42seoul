@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/23 14:07:06 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:30:53 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ public:
 	float toFloat(void) const;
 	int toInt(void) const;
 
-	friend std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
-	{
-		out << fixed.toFloat();
-		return out;
-	}
-
 	bool operator==(const Fixed &other) const;
 	bool operator>=(const Fixed &other) const;
 	bool operator<=(const Fixed &other) const;
@@ -51,9 +45,9 @@ public:
 	Fixed operator*(const Fixed &other) const;
 	Fixed operator/(const Fixed &other) const;
 
-	Fixed &operator++(void);
+	const Fixed &operator++(void);
 	Fixed operator++(int);
-	Fixed &operator--(void);
+	const Fixed &operator--(void);
 	Fixed operator--(int);
 
 	static Fixed &min(Fixed &a, Fixed &b);
@@ -61,5 +55,7 @@ public:
 	static Fixed &max(Fixed &a, Fixed &b);
 	static const Fixed &max(const Fixed &a, const Fixed &b);
 };
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed);
 
 #endif

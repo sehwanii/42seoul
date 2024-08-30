@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 19:59:51 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/08/23 14:08:19 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:44:25 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ float Fixed::toFloat(void) const
 int Fixed::toInt(void) const
 {
 	return fixedValue >> fractionalBits;
+}
+
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
+{
+	out << fixed.toFloat();
+    return out;
 }
