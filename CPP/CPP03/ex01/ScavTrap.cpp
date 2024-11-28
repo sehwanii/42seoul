@@ -6,7 +6,7 @@
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 06:24:41 by sehwanii          #+#    #+#             */
-/*   Updated: 2024/11/29 02:01:09 by sehwjang         ###   ########.fr       */
+/*   Updated: 2024/11/29 02:31:13 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ void ScavTrap::attack(const std::string &target)
 
 void ScavTrap::takeDamage(unsigned int amount)
 {
-	if (mHitPoint - amount < 0)
-		mHitPoint = 0;
-	else
-		mHitPoint -= amount;
+	mHitPoint -= amount;
 	std::cout << "ScavTrap " << mName << " has taken " << amount << " damage" << std::endl;
 }
 
