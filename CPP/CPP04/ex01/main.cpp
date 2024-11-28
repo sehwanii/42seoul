@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-28 18:33:20 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-11-28 18:33:20 by sehwanii         ###   ########.kr       */
+/*   Created: 2024-11-28 18:34:24 by sehwanii          #+#    #+#             */
+/*   Updated: 2024-11-28 18:34:24 by sehwanii         ###   ########.kr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 
-#include <iostream>
+int main(){
+    const Animal *animals[10];
+    for(int i = 0; i<10; i++){
+        if (i%2)
+            animals[i] = new Dog();
+        else
+            animals[i] = new Cat();
+    }
 
-class Animal
-{
-protected:
-    std::string type;
-
-public:
-    Animal(void);
-    Animal(const Animal &obj);
-    Animal &operator=(const Animal &obj);
-    virtual ~Animal(void);
-    virtual void makeSound(void) const;
-    virtual std::string getType(void) const;
-};
-
-#endif
+    for(int i = 0; i<10;i++){
+        delete animals[i];
+    }
+    system("leaks ex01");
+    return 0;
+}

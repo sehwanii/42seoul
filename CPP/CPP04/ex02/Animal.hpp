@@ -14,6 +14,7 @@
 #define ANIMAL_HPP
 
 #include <iostream>
+#include <string>
 
 class Animal
 {
@@ -25,7 +26,9 @@ public:
     Animal(const Animal &obj);
     Animal &operator=(const Animal &obj);
     virtual ~Animal(void);
-    virtual void makeSound(void) const;
+
+    virtual void makeSound(void) const = 0;
+
     virtual std::string getType(void) const;
 };
 
