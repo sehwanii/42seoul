@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-12 06:24:41 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-12 06:24:41 by sehwanii         ###   ########.kr       */
+/*   Created: 2024/08/12 06:24:41 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/11/29 02:03:05 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,21 @@ FragTrap::~FragTrap(){
     std::cout << "FragTrap "<<this->mName<<" destructor called"<<std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other)
+FragTrap &FragTrap::operator=(const FragTrap &other)
 {
-    this->mName = other.mName;
+	std::cout<< "FragTrap "<<"Copy assignment operator called"<<std::endl;
+	if (this != &other)
+	{
+		this->mName = other.mName;
+		this->mAttackDamage = other.mAttackDamage;
+    	this->mHitPoint = other.mHitPoint;
+    	this->mEnergyPoint = other.mEnergyPoint;
+	}
+	return *this;
+}
+
+FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other.mName)
+{
     this->mAttackDamage = other.mAttackDamage;
     this->mEnergyPoint = other.mEnergyPoint;
     this->mHitPoint = other.mHitPoint;
@@ -46,20 +58,57 @@ FragTrap::FragTrap(const FragTrap &other)
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout<<mName<<" high fives with guys~"<<std::endl;
+	if (mEnergyPoint <= 0)
+    {
+        std::cout << "FragTrap " << this->mName<< " : No Energy..." << std::endl;
+        return ;
+    }
+    else if (mHitPoint <= 0)
+    {
+        std::cout << "FragTrap " << this->mName<< " : No Hit Point..." << std::endl;
+        return ;
+    }
+	this->mEnergyPoint--;
+    std::cout<<"FragTrap " << mName<<" high fives with guys~"<<std::endl;
 }
 
 void FragTrap::attack(const std::string &target)
 {
     if (mEnergyPoint <= 0)
     {
-        std::cout << "No Energy..." << std::endl;
+        std::cout << "FragTrap " << this->mName<< " : No Energy..." << std::endl;
         return ;
     }
     else if (mHitPoint <= 0)
     {
-        std::cout << "No Hit Point..." << std::endl;
+        std::cout << "FragTrap " << this->mName<< " : No Hit Point..." << std::endl;
         return ;
     }
     std::cout	<< "FragTrap " << this->mName << " attacks " << target << ", causing " << this->mAttackDamage << " points of damage!"<< std::endl;
+}
+
+void FragTrap::takeDamage(unsigned int amount)
+{
+	if (mHitPoint - amount < 0)
+		mHitPoint = 0;
+	else
+		mHitPoint -= amount;
+	std::cout << "FragTrap " << mName << " has taken " << amount << " damage" << std::endl;
+}
+
+void FragTrap::beRepaired(unsigned int amount)
+{
+	if (mEnergyPoint <= 0)
+	{
+		std::cout << "FragTrap " << this->mName << " : No Energy..." << std::endl;
+		return;
+	}
+	else if (mHitPoint <= 0)
+	{
+		std::cout << "FragTrap " << this->mName << " : No Hit Point..." << std::endl;
+		return;
+	}
+	this->mEnergyPoint--;
+	this->mHitPoint += amount;
+	std::cout << "FragTrap " << mName << " has been repaired " << amount << " Hit Point" << std::endl;
 }

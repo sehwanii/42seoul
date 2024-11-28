@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-12 06:24:31 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-12 06:24:31 by sehwanii         ###   ########.kr       */
+/*   Created: 2024/08/12 06:24:31 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/11/29 02:03:01 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ public:
 
     void    attack(const std::string& target);
     void    highFivesGuys(void);
+	void    takeDamage(unsigned int amount);
+    void    beRepaired(unsigned int amount);
 };
 
 #endif
