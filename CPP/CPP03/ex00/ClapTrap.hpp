@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-08 09:21:58 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-08 09:21:58 by sehwanii         ###   ########kr        */
+/*   Created: 2024/08/08 09:21:58 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/11/29 01:46:26 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class ClapTrap
 {
 private:
     std::string mName;
-    unsigned int         mHitPoint;
+    int         mHitPoint;
     unsigned int         mEnergyPoint;
     unsigned int         mAttackDamage;
 

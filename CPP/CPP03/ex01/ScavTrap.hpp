@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-12 06:24:31 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-12 06:24:31 by sehwanii         ###   ########.kr       */
+/*   Created: 2024/08/12 06:24:31 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/11/29 01:50:43 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ public:
 
     void    guardGate();
     void    attack(const std::string& target);
+	void    takeDamage(unsigned int amount);
+    void    beRepaired(unsigned int amount);
 };
 
 #endif

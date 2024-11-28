@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-08 09:21:58 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-08 09:21:58 by sehwanii         ###   ########kr        */
+/*   Created: 2024/08/08 09:21:58 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/11/29 02:14:07 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ class ClapTrap
 {
 protected:
     std::string mName;
-    unsigned int         mHitPoint;
+    int      			 mHitPoint;
     unsigned int         mEnergyPoint;
     unsigned int         mAttackDamage;
 
@@ -28,9 +28,9 @@ public:
     ClapTrap(std::string name);
     ClapTrap(const ClapTrap &other);
     ClapTrap &operator=(const ClapTrap &other);
-    virtual ~ClapTrap();
+    ~ClapTrap();
 
-    virtual void    attack(const std::string& target);
+    void    attack(const std::string& target);
     void    takeDamage(unsigned int amount);
     void    beRepaired(unsigned int amount);
 };
