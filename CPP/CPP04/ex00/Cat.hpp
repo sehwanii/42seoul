@@ -2,8 +2,8 @@
 #define Cat_HPP
 
 #include <iostream>
-
-class Cat
+#include "Animal.hpp"
+class Cat : public Animal
 {
 private:
     std::string type;

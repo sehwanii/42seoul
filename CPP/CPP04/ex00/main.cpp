@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehwanii <sehwanii@student.42.fr>          #+#  +:+       +#+        */
+/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-20 08:38:05 by sehwanii          #+#    #+#             */
-/*   Updated: 2024-08-20 08:38:05 by sehwanii         ###   ########.kr       */
+/*   Created: 2024/08/20 08:38:05 by sehwanii          #+#    #+#             */
+/*   Updated: 2024/08/29 10:54:27 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 #include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 
 int main(void)
 {
     const Animal *meta = new Animal();
     const Animal *j = new Dog();
     const Animal *i = new Cat();
-    const WrongAnimal *wrong = new WrongCat();
+    
 
     std::cout << std::endl;
     std::cout << i->getType() << " " << std::endl;
@@ -30,8 +33,7 @@ int main(void)
     meta->makeSound();
     std::cout << std::endl;
 
-    std::cout << wrong->getType() << " " << std::endl;
-    wrong->makeSound();
+   
 
     std::cout << std::endl;
     delete meta;
@@ -40,7 +42,27 @@ int main(void)
     j = NULL;
     delete i;
     i = NULL;
-    delete wrong;
-    wrong = NULL;
+
+	
+
+	// const WrongAnimal *meta2 = new WrongAnimal();
+    // const WrongAnimal *k = new WrongCat();
+    
+
+    // std::cout << std::endl;
+    // std::cout << k->getType() << " " << std::endl;
+    // k->makeSound();
+    // std::cout << meta2->getType() << " " << std::endl;
+    // meta2->makeSound();
+    // std::cout << std::endl;
+
+   
+
+    // std::cout << std::endl;
+    // delete meta2;
+    // meta2 = NULL;
+    // delete k;
+    // k = NULL;
+
     return 0;
 }

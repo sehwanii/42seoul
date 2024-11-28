@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "Animal.hpp"
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 
-Cat::Cat() : type("Cat")
+WrongCat::WrongCat() : type("WrongCat")
 {
-	std::cout << "Cat default constructor called" << std::endl;
+	std::cout << "WrongCat default constructor called" << std::endl;
 }
 
-Cat::Cat(const Cat &other) : type(other.type)
+WrongCat::WrongCat(const WrongCat &other) : type(other.type)
 {
-    std::cout << "Cat copy constructor called" << std::endl;
+    std::cout << "WrongCat copy constructor called" << std::endl;
 }
 
-Cat &Cat::operator=(const Cat &other)
+WrongCat &WrongCat::operator=(const WrongCat &other)
 {
-	std::cout<< "Cat Copy assignment operator called"<<std::endl;
+	std::cout<< "WrongCat Copy assignment operator called"<<std::endl;
 	if (this != &other)
 	{
 		this->type = other.type;
@@ -33,15 +33,15 @@ Cat &Cat::operator=(const Cat &other)
 	return *this;
 }
 
-Cat::~Cat()
+WrongCat::~WrongCat()
 {
-    std::cout << "Cat destructor called" << std::endl;
+    std::cout << "WrongCat destructor called" << std::endl;
 }
 
-void	Cat::makeSound() const{
-	std::cout << "MEOW MEOW!" << std::endl;
+void	WrongCat::makeSound() const{
+	std::cout << "WRONG MEOW WRONG MEOW!" << std::endl;
 }
 
-std::string Cat::getType(void) const{
+std::string WrongCat::getType(void) const{
 	return this->type;
 }
