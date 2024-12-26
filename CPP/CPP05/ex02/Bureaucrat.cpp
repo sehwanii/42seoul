@@ -66,6 +66,9 @@ void Bureaucrat::decrementGrade()
     mGrade++; // 등급 감소 (숫자 증가)
 }
 
+void	Bureaucrat::signForm(Form &f){
+	f.beSigned(*this);
+}
 
 const char *Bureaucrat::GradeTooHighException::what(void) const throw()
 {
