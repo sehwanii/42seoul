@@ -66,7 +66,7 @@ void Bureaucrat::decrementGrade()
     mGrade++; // 등급 감소 (숫자 증가)
 }
 
-void	Bureaucrat::signForm(Form &f){
+void	Bureaucrat::signForm(AForm &f){
 	f.beSigned(*this);
 }
 
@@ -78,6 +78,16 @@ const char *Bureaucrat::GradeTooHighException::what(void) const throw()
 const char *Bureaucrat::GradeTooLowException::what(void) const throw()
 {
     return "Grade is too low!";
+}
+
+void	Bureaucrat::executeForm(AForm const & form){
+	try {
+    	form.execute(*this);
+    	std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	} catch (std::exception& e) {
+    	std::cout << this->getName() << " couldn't execute " <<
+    	form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 std::ostream	&operator<<(std::ostream &o, Bureaucrat &a)

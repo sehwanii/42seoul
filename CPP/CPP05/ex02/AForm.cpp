@@ -1,38 +1,38 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <stdexcept>
 #include <iostream>
 
 // Default constructor
-Form::Form()
+AForm::AForm()
     : m_name("Default"), m_isSigned(false), m_signGrade(150), m_execGrade(150) // m_grade를 멤버 초기화 리스트로 초기화
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
 // Parameterized constructor
-Form::Form(std::string name, int signGrade, int execGrade)
+AForm::AForm(std::string name, int signGrade, int execGrade)
     : m_name(name), m_isSigned(false), m_signGrade(signGrade), m_execGrade(execGrade) // m_grade를 초기화 리스트로 초기화
 {
-    std::cout << "Form constructor called" << std::endl;
+    std::cout << "AForm constructor called" << std::endl;
     if (signGrade < 1 || execGrade<1)
     {
-        throw Form::GradeTooHighException();
+        throw AForm::GradeTooHighException();
     }
     else if (signGrade > 150|| execGrade > 150)
     {
-        throw Form::GradeTooLowException();
+        throw AForm::GradeTooLowException();
     }
 }
 
 // Copy constructor
-Form::Form(const Form &other)
+AForm::AForm(const AForm &other)
     : m_name(other.m_name), m_isSigned(other.m_isSigned), m_signGrade(other.m_signGrade), m_execGrade(other.m_execGrade) // 초기화 리스트 사용
 {
     std::cout << "Copy constructor called" << std::endl;
 }
 
 // Assignment operator
-Form &Form::operator=(const Form &other)
+AForm &AForm::operator=(const AForm &other)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if (this != &other) // Self-assignment check
@@ -43,33 +43,33 @@ Form &Form::operator=(const Form &other)
 }
 
 // Destructor
-Form::~Form()
+AForm::~AForm()
 {
     std::cout << "Destructor called" << std::endl;
 }
 
 // Getters
-std::string Form::getName(void) const
+std::string AForm::getName(void) const
 {
     return m_name;
 }
 
-int Form::getSignGrade(void) const
+int AForm::getSignGrade(void) const
 {
     return m_signGrade;
 }
 
-int Form::getExecGrade(void) const
+int AForm::getExecGrade(void) const
 {
     return m_execGrade;
 }
 
-bool Form::getIsSigned(void) const
+bool AForm::getIsSigned(void) const
 {
 	return m_isSigned;
 }
 
-void Form::beSigned(Bureaucrat b){
+void AForm::beSigned(Bureaucrat b){
 	if(this->getSignGrade() < b.getGrade()){
 		std::cout << b.getName() << " couldn't sign " << this->getName() << " because";
 		throw(Bureaucrat::GradeTooLowException());
@@ -79,24 +79,39 @@ void Form::beSigned(Bureaucrat b){
 		std::cout << b.getName() << " signed " << this->getName() << std::endl;
 	}
 	else{
-		std::cout << b.getName() << " couldn't sign " << this->getName() << " because Form is already signed" << std::endl;
+		std::cout << b.getName() << " couldn't sign " << this->getName() << " because AForm is already signed" << std::endl;
+	}
+}
+
+void AForm::checkExecutable(Bureaucrat b) const{
+	if(this->m_isSigned == false){
+		std::cout << b.getName() << " couldn't execute " << this->getName() << " because";
+		throw FormNotSignedException();
+	}
+	else if(this->getExecGrade() > b.getGrade()){
+		std::cout << b.getName() << " couldn't execute " << this->getName() << " because";
+		throw Bureaucrat::GradeTooLowException();
 	}
 }
 
 // Exception classes
-const char *Form::GradeTooHighException::what(void) const throw()
+const char *AForm::GradeTooHighException::what(void) const throw()
 {
     return "Form grade is too high!";
 }
 
-const char *Form::GradeTooLowException::what(void) const throw()
+const char *AForm::GradeTooLowException::what(void) const throw()
 {
     return "Form grade is too low!";
 }
 
-// Overloaded output operator
-std::ostream &operator<<(std::ostream &o, Form &a)
+const char *AForm::FormNotSignedException::what(void) const throw()
 {
-    o << "Form " << a.getName() << ": sign grade: " << a.getSignGrade() << ": exec grade: " << a.getExecGrade()<< ": isSigned: " << a.getIsSigned() << std::endl;
+	return "Form is not signed!";
+}
+// Overloaded output operator
+std::ostream &operator<<(std::ostream &o, AForm &a)
+{
+    o << "AForm " << a.getName() << ": sign grade: " << a.getSignGrade() << ": exec grade: " << a.getExecGrade()<< ": isSigned: " << a.getIsSigned() << std::endl;
     return (o);
 }
