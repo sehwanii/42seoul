@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:04:18 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:04:20 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/12/30 17:07:01 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/12/30 17:07:01 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 #include <string>
 #include <iostream>
+#include "AForm.hpp"
+
+class AForm;
 
 class Bureaucrat
 {
@@ -34,7 +37,8 @@ public:
 	void	incrementGrade();
 	void	decrementGrade();
 
-
+	void	signForm(AForm &f);
+	void	executeForm(AForm const & form);
     class GradeTooHighException : public std::exception
 	{
 		public:

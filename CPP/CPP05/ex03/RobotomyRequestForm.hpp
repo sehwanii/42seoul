@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:05:23 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:05:24 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/12/30 17:07:14 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/12/30 17:07:15 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
 #include <string>
 #include <iostream>
 #include "AForm.hpp"
 
-class ShrubberyCreationForm : public AForm
+class RobotomyRequestForm : public AForm
 {
 private:
 	const std::string   m_name;
     bool				m_isSigned;
 	const int			m_signGrade;
 	const int 			m_execGrade;
-	const std::string	m_target;	
+	const std::string	m_target;
 public:
-    ShrubberyCreationForm(std::string target);
-	ShrubberyCreationForm(std::string name, int signGrade, int execGrade);
-    ShrubberyCreationForm(const ShrubberyCreationForm &other);
-    ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
-    ~ShrubberyCreationForm();
+    RobotomyRequestForm(std::string target);
+	RobotomyRequestForm(std::string name, int signGrade, int execGrade);
+    RobotomyRequestForm(const RobotomyRequestForm &other);
+    RobotomyRequestForm &operator=(const RobotomyRequestForm &other);
+    ~RobotomyRequestForm();
 	void	execute(Bureaucrat const & executor) const;
 };
 
