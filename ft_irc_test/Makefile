@@ -6,34 +6,31 @@
 #    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/12/31 17:28:00 by sehwjang         ###   ########.fr        #
+#    Updated: 2025/01/03 18:35:57 by sehwjang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC 		=	c++
-NAME	=	ircserv
-SRCS	= 	$(wildcard *.cpp)
+CPP = c++
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-HEADERS	=	$(wildcard *.hpp)
+NAME = ircserv
+SRCS = $(wildcard ./src/*.cpp ./src/commands/*.cpp)
+OBJS = $(SRCS:.cpp=.o)
 
-OBJS	=	$(SRCS:.cpp=.o)
-
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
-
-.PHONY : all clean fclean re bonus
-
-all : $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CPP) $(CPPFLAGS) $^ -o $@
 
-%.o : %.cpp $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	rm -rf $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -rf $(NAME)
 
-re : fclean all
+re: fclean all
+
+.PHONY: all re clean fclean
