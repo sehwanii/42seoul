@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:07:14 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:07:15 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/12/30 17:05:19 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/12/30 17:05:20 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@
 class RobotomyRequestForm : public AForm
 {
 private:
-	const std::string   m_name;
-    bool				m_isSigned;
-	const int			m_signGrade;
-	const int 			m_execGrade;
 	const std::string	m_target;
 public:
     RobotomyRequestForm(std::string target);

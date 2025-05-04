@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:06:40 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:06:41 by sehwjang         ###   ########.fr       */
+/*   Created: 2024/12/30 17:04:56 by sehwjang          #+#    #+#             */
+/*   Updated: 2024/12/30 17:04:56 by sehwjang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 // Default constructor
 PresidentialPardonForm::PresidentialPardonForm(std::string target)
-    : m_name(target + "_Presidential"), m_isSigned(false), m_signGrade(25), m_execGrade(5), m_target(target) // m_grade를 멤버 초기화 리스트로 초기화
+    : AForm(target + "_Presidential", 25, 5), m_target(target) // m_grade를 멤버 초기화 리스트로 초기화
 {
     std::cout << "Presidential constructor called" << std::endl;
 	std::cout << target<<" has been pardoned by Zaphod Beeblebrox." << std::endl;
@@ -24,7 +24,7 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target)
 
 // Copy constructor
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other)
-    : m_name(other.m_name), m_isSigned(other.m_isSigned), m_signGrade(other.m_signGrade), m_execGrade(other.m_execGrade), m_target(other.m_target) // 초기화 리스트 사용
+    :  AForm(other), m_target(other.m_target) // 초기화 리스트 사용
 {
     std::cout << "Presidential Copy constructor called" << std::endl;
 }
@@ -33,9 +33,9 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &oth
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
 {
     std::cout << "Presidential Copy assignment operator called" << std::endl;
-    if (this != &other) // Self-assignment check
+    if (this != &other)
     {
-        m_isSigned = other.m_isSigned;
+        AForm::operator=(other);        
     }
     return *this;
 }
