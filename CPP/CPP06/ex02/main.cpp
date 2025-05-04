@@ -11,8 +11,13 @@
 /* ************************************************************************** */
 
 #include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
-#include <iostream>
 
+int main() {
+	Base* test1;
+
+	test1 = generate();
+	identify(test1);
+	identify(*test1);
+
+	delete test1;
+}
