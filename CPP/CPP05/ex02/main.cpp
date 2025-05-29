@@ -1,210 +1,58 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 10:30:36 by tblaase           #+#    #+#             */
-/*   Updated: 2024/12/28 17:54:15 by sehwjang         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "Bureaucrat.hpp"
-#include "AForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
+#include <iostream>
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-int main(void)
-{
-	{
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat();
-		AForm *b = new PresidentialPardonForm("default");
-		// Form *c = new RobotomyRequestForm();
-		// Form *d = new ShrubberyCreationForm();
-		std::cout << std::endl;
+#define C_TITLE "\033[32;7m"
+#define C_TITLEN "\033[32;7m\n"
+#define C_COMMENT "\033[30;7m\n"
+#define C_RESET "\033[0m"
 
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
+int main( void ) {
+	Bureaucrat				S1("sign1", 1);
+	Bureaucrat				B5("bur1", 5);
+	Bureaucrat				B70("bur2", 70);
+	Bureaucrat				B150("bur2", 150);
+	ShrubberyCreationForm	F1("target1");
+	RobotomyRequestForm		F2("target1");
+	PresidentialPardonForm	F3("target1");
 
-		try
-		{
-			b->beSigned(*a);
-			// b->execute(*a);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << a->getName() << " was not able to sign " << b->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
+	std::cout << C_TITLE "< 1. print Concrete Form info >" C_RESET << std::endl;
+	std::cout << F1;
+	std::cout << F2;
+	std::cout << F3;
 
-		std::cout << *b;
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		std::cout << std::endl;
+	std::cout << C_TITLEN "< 2. Failed Execute >" C_RESET << std::endl;
+	try {
+		F1.execute(B150);
+		F2.execute(B150);
+		F3.execute(B150);
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "--------------------------------------------------------------------------------------------------------------" << std::endl;
-	{
-		std::cout << std::endl;
-
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat("Assistant", 145);
-		Bureaucrat *b = new Bureaucrat("CEO", 1);
-		AForm *c = new PresidentialPardonForm("some dude");
-		// Form *d = new Form(*c);
-		// Form *d = new Form("Rent Contract", 140, 100); // you are not able to construct an abstract class here
-		std::cout << std::endl;
-
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-		std::cout << *c;
-		std::cout << std::endl;
-
-		// Try to execute before signing
-		try
-		{
-			c->execute(*b);
-		}
-		catch (AForm::FormNotSignedException &e)
-		{
-			std::cerr << "\033[33m" << a->getName() << " was not able to execute the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << std::endl;
-		// Assistant signs the Form
-		try
-		{
-			c->beSigned(*a);
-			// a->signForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << a->getName() << " was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-
-		// CEO signs the Form
-		std::cout << std::endl;
-		std::cout << *c;
-		std::cout << std::endl;
-		try
-		{
-			c->beSigned(*b);
-			// b->signForm(*c);
-		}
-		// catch(Form::GradeTooLowException &e)
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << b->getName() << " was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << std::endl;
-		std::cout << *c;
-		std::cout << std::endl;
-
-		// try signing the from again
-		std::cout << std::endl;
-		b->signForm(*c);
-		std::cout << std::endl;
-
-		// execute the Form from assistant
-		try
-		{
-			c->execute(*a);
-			// a.executeForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << a->getName() << " was not able to execute the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << std::endl;
-
-		// execute Form from CEO
-		try
-		{
-			c->execute(*b);
-			// b.executeForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << b->getName() << " was not able to execute the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		delete c;
-		std::cout << std::endl;
+	
+	std::cout << C_COMMENT "// sign to form" C_RESET << std::endl;
+	try {
+		B70.signForm(F1);
+		B70.signForm(F2);
+		B70.signForm(F3);
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "--------------------------------------------------------------------------------------------------------------" << std::endl;
-	{
-		std::cout << std::endl;
-
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat("Emperor", 1);
-		PresidentialPardonForm *b = new PresidentialPardonForm("this other dude");
-		PresidentialPardonForm *c = new PresidentialPardonForm(*b);
-		std::cout << std::endl;
-
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-		std::cout << *c;
-		try{
-			b->beSigned(*a);
-			a->signForm(*c);
-			b->execute(*a);
-			a->executeForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e){
-			std::cerr << "\033[33m" << b->getName() << " was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		// c->execute(*a);
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		delete c;
-		std::cout << std::endl;
+	try {
+		S1.signForm(F1);
+		S1.signForm(F2);
+		S1.signForm(F3);
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "--------------------------------------------------------------------------------------------------------------" << std::endl;
-	{
-		std::cout << std::endl;
 
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat("Emperor", 1);
-		RobotomyRequestForm *b = new RobotomyRequestForm("Bender");
-		ShrubberyCreationForm *c = new ShrubberyCreationForm("christmas");
-		std::cout << std::endl;
-
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-		std::cout << *c;
-		try{
-			b->beSigned(*a);
-			a->signForm(*c);
-			for (int i= 0; i < 10; i++)
-				b->execute(*a);
-			// a->executeForm(*c);
-			c->execute(*a);
-
-		}
-		catch(Bureaucrat::GradeTooLowException &e){
-			std::cerr << "\033[33m" <<" was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		delete c;
-		std::cout << std::endl;
+	std::cout << C_TITLEN "< 3. Successful Execute >" C_RESET << std::endl;
+	try {
+		F1.execute(B5);    std::cout << std::endl;
+		F2.execute(B5);    std::cout << std::endl;
+		F3.execute(B5);
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	return (0);
 }

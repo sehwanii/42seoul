@@ -1,55 +1,42 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:04:03 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:04:14 by sehwjang         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+#include <iostream>
 #include "Bureaucrat.hpp"
 
-int main()
-{
-	try
-	{
-		try
-		{
-			Bureaucrat test("test", 200);	
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-		
-		Bureaucrat a("a", 150);
-		Bureaucrat b("b", 1);
+#define C_TITLE "\033[32;7m"
+#define C_TITLEN "\033[32;7m\n"
+#define C_RESET "\033[0m"
 
-		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << std::endl;
-		
-		a.decrementGrade();
-	
-		b.incrementGrade();
-	
-		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << std::endl;
+int main( void ) {
+	std::cout << C_TITLE "< 0. Insertion operator >" C_RESET << std::endl;
+	Bureaucrat b1("test", 10);
+	std::cout << b1 << std::endl;
 
-		// a.incrementGrade();
-		// b.decrementGrade();
-		// std::cout << a << std::endl;
-		// std::cout << b << std::endl;
-		// std::cout << std::endl;
+	std::cout << C_TITLE "< 1. Constructor >" C_RESET << std::endl;
+	try {
+		Bureaucrat b1("one", 0);    std::cout << "one) OK" << std::endl;
+		Bureaucrat b2("two", 151);  std::cout << "two) OK" << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
+
+	std::cout << C_TITLEN "< 2. Increment >" C_RESET << std::endl;
+	try {
+		Bureaucrat b3("three", 3);
+
+		b3.incrementGrade();        std::cout << "1) OK" << std::endl;
+		b3.incrementGrade();        std::cout << "2) OK" << std::endl;
+		b3.incrementGrade();        std::cout << "3) OK" << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	
-	return (0);
+
+	std::cout << C_TITLEN "< 3. Decrement >" C_RESET << std::endl;
+	try {
+		Bureaucrat b4("four", 149);
+
+		b4.decrementGrade();        std::cout << "1) OK" << std::endl;
+		b4.decrementGrade();        std::cout << "2) OK" << std::endl;
+		b4.decrementGrade();        std::cout << "3) OK" << std::endl;
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
+	}
 }

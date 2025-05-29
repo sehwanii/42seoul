@@ -1,155 +1,40 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 17:03:56 by sehwjang          #+#    #+#             */
-/*   Updated: 2024/12/30 17:04:33 by sehwjang         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "Form.hpp"
+#include <iostream>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
-int main(void)
-{
-	{
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat();
-		Form *b = new Form();
-		std::cout << std::endl;
+#define C_TITLE "\033[32;7m"
+#define C_TITLEN "\033[32;7m\n"
+#define C_RESET "\033[0m"
 
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-
-		try
-		{
-			b->beSigned(*a);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << a->getName() << " was not able to sign " << b->getName() << ": " << e.what() << std::endl;
-		}
-
-		std::cout << *b;
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		std::cout << std::endl;
+int main( void ) {
+	std::cout << C_TITLE "< 1. Invalid Form >" C_RESET << std::endl;
+	try {
+		Form form3("form3", 151, 0);
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "-------------------------------------------------------" << std::endl;
-	{
-		std::cout << std::endl;
 
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat("Assistant", 145);
-		Bureaucrat *b = new Bureaucrat("CEO", 1);
-		Form *c = new Form("Rent Contract", 140, 100);
-		std::cout << std::endl;
+	std::cout << C_TITLEN "< 2. Successful Sign >" C_RESET << std::endl;
+	try {
+		Bureaucrat b1("One", 5);
+		Form form1("Form1", 10, 10);
 
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-		std::cout << *c;
-
-		// Assistant signs the Form
-		try
-		{
-			// c->beSigned(*a);
-			a->signForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << a->getName() << " was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-
-		// CEO signs the Form
-		std::cout << *c;
-		try
-		{
-			c->beSigned(*b);
-			// b->signForm(*c);
-		}
-		catch(Bureaucrat::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33m" << b->getName() << " was not able to sign the Form " << c->getName() << ": " << e.what() << "\033[0m" << std::endl;
-		}
-		std::cout << *c;
-
-		// try signing the from again
-		b->signForm(*c);
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		delete c;
-		std::cout << std::endl;
+		std::cout << form1;
+		b1.signForm(form1);
+		std::cout << form1;
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	std::cout << "-------------------------------------------------------" << std::endl;
-	{
-		std::cout << std::endl;
 
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Form *a = NULL;
+	std::cout << C_TITLEN "< 3. Failed Sign >" C_RESET << std::endl;
+	try {
+		Bureaucrat b2("Two", 5);
+		Form form2("Form2", 2, 7);
 
-		// sign-grade too high
-		try
-		{
-			a = new Form("a",160, 145);
-		}
-		catch (Form::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33mConstructing default failed: " <<
-			e.what() << "\033[0m" << std::endl;
-		}
-
-		// exec-grade too high
-		try
-		{
-			a = new Form("b",145, 160);
-		}
-		catch (Form::GradeTooLowException &e)
-		{
-			std::cerr << "\033[33mConstructing default failed: " <<
-			e.what() << "\033[0m" << std::endl;
-		}
-
-		// sign-grade too low
-		try
-		{
-			a = new Form("c",-15, 145);
-		}
-		catch (Form::GradeTooHighException &e)
-		{
-			std::cerr << "\033[33mConstructing default failed: " <<
-			e.what() << "\033[0m" << std::endl;
-		}
-
-		// exec-grade too low
-		try
-		{
-			a = new Form("d",145, -15);
-		}
-		catch (Form::GradeTooHighException &e)
-		{
-			std::cerr << "\033[33mConstructing default failed: " <<
-			e.what() << "\033[0m" << std::endl;
-		}
-
-		// Deconstruction to prevent unused variable, in this case will never be called
-		if (a != NULL)
-		{
-			std::cout << std::endl;
-			std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-			delete a;
-		}
-		std::cout << std::endl;
+		std::cout << form2;
+		b2.signForm(form2);
+		std::cout << form2;
+	} catch (std::exception & e) {
+		std::cerr << e.what() << std::endl;
 	}
-	return (0);
 }

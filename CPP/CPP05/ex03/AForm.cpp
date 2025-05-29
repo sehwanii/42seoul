@@ -100,7 +100,7 @@ void AForm::checkExecutable(Bureaucrat b) const{
 		std::cout << b.getName() << " couldn't execute " << this->getName() << " because";
 		throw FormNotSignedException();
 	}
-	else if(this->getExecGrade() > b.getGrade()){
+	else if(this->getExecGrade() < b.getGrade()){
 		std::cout << b.getName() << " couldn't execute " << this->getName() << " because";
 		throw Bureaucrat::GradeTooLowException();
 	}
