@@ -1,39 +1,39 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sehwjang <sehwjang@student.42seoul.kr>     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/24 13:31:59 by sehwjang          #+#    #+#              #
-#    Updated: 2024/12/26 18:58:19 by sehwjang         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+.DELETE_ON_ERROR:
+.DEFAULT_GOAL = all \
 
-CC 		=	c++
-NAME	=	ex02
-SRCS	= 	$(wildcard *.cpp)
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-HEADERS	=	$(wildcard *.hpp)
+NAME := ex02
+SRCS := $(wildcard *.cpp)
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS = $(SRCS:.cpp=.o)
+DEPS = $(SRCS:.cpp=.d)
+-include $(DEPS)
 
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
+ifdef DEPS
+	CXXFLAGS += -MMD -MP
+endif
+ifdef DEBUG
+	CXXFLAGS += -g3
+endif
+ifdef ADDRESS
+	CXXFLAGS += -fsanitize=address
+endif
 
-.PHONY : all clean fclean re bonus
-
-all : $(NAME)
+all:
+	$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CXXFLAGS) $(OBJS) -o $(NAME)
-
-%.o : %.cpp $(HEADERS)
-	$(CC) $(CXXFLAGS) -c $< -o $@
+	$(LINK.cpp) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 clean:
-	@rm -f $(OBJS)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
-re : fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
+
+.PHONY: all clean fclean re
